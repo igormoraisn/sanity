@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# A partir deste script, testaremos se os principais compiladores utilizados estão ativos no sistema
+# E se os mesmos funcionam corretamente
+
 # GCC
 
 gcc_path=/usr/bin/gcc
