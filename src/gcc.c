@@ -82,8 +82,8 @@ unsigned int _math(FILE* output){
  */
 unsigned int _stdlib(FILE* output){
 	srand(time(NULL));
-	printf("%d\n", rand()%99);
-	system("clear");
+	//printf("%d\n", rand()%99);
+	//system("clear");
 	fprintf(output, "%d%f%ld", atoi("103"), atof("985.3"), atol("12141312"));
 	return 5;
 }
