@@ -1,7 +1,7 @@
 /*	Universidade Federal de Sergipe
  * 	Igor Nascimento dos Santos
  * 	Gerência e Suporte a Sistemas - DCOMP
- *  Teste de Sanidade com o Gcc
+ *  	Teste de Sanidade com o Gcc
  */
 
 #include <assert.h>
@@ -52,8 +52,10 @@ unsigned int _errno(FILE* output){
  */
 unsigned int _float(FILE* output){
 	float_t test;
-	test = 1.434223;
-	fprintf(output, "%f", test);
+	float teste;
+	test = 1.22321331;
+	teste = test;
+	fprintf(output, "%f", teste);
 	return 2;
 }
 
@@ -61,8 +63,8 @@ unsigned int _float(FILE* output){
  * 	The macros defined in this header, limits the values of various variable types like char, int and long.
  */
 unsigned int _limits(FILE* output){
-	fprintf(output, "%d %d %d %d %d %d %ld", CHAR_BIT, SCHAR_MIN, 
-	UCHAR_MAX, SHRT_MIN, INT_MAX, CHAR_MIN, LONG_MAX);
+	fprintf(output, "%d %d %d %d %d %d ", CHAR_BIT, SCHAR_MIN, 
+	UCHAR_MAX, SHRT_MIN, INT_MAX, CHAR_MIN);
 	return 3;
 }
 
@@ -92,17 +94,22 @@ unsigned int _stdlib(FILE* output){
  * 	and various functions for manipulating arrays of characters.
  */
 unsigned int _string(FILE* output){
-	char str1[20], str2[5];
-	unsigned int stra, strb;
-	strcpy(str1, "Teste de Sanidade");
+	char str1[25], str2[6];
+	int stra, strb;
+	strcpy(str1,"Teste de Sanidade");
 	strcpy(str2,"DCOMP");
-	stra = strlen(str1), strb = strlen(str2);
+	stra = strlen(str1);
+	strb = strlen(str2);
+	
+
 	fprintf(output, "%u%u", stra, strb);
 	if(strcmp(str1, str2) == 0)
 		fprintf(output, "%s", "EQ");
 	else
 		fprintf(output, "%s", "NEQ");
-	fprintf(output, "%s", strcat(str1, str2));
+	
+
+	fprintf(output, "%s", strcat(str1, "DCOMP"));
 	return 6;
 }
 
