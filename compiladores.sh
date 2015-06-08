@@ -1,8 +1,11 @@
 #!/bin/bash
 
 log=.log.txt
-date >> $log
 
+# Removendo a última checagem
+rm $log
+
+date >> $log
 
 # Função que verifica a existência de arquivos
 testa_arquivos(){
@@ -17,7 +20,6 @@ testa_arquivos(){
 fi
 }
 
-rm .log.txt
 # GCC
 
 gcc_path=/usr/bin/gcc
@@ -121,6 +123,12 @@ if [ $? -eq 1 ]; then
 	fi
 	rm src/haskell.txt
 fi
+
+# MYSQL (Mariadb)
+mysql_path=/usr/bin/mysql
+
+# Verificando a existência do Mysql
+testa_arquivos $mysql_path "mysql"
 
 echo "Teste de compiladores realizado com sucesso!"
 
