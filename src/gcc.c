@@ -53,7 +53,7 @@ unsigned int _errno(FILE* output){
 unsigned int _float(FILE* output){
 	float_t test;
 	float teste;
-	test = 1.22321331;
+	test = 1.2232132;
 	teste = test;
 	fprintf(output, "%f", teste);
 	return 2;
