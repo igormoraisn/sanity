@@ -43,8 +43,7 @@ fi
 
 # JDK
 
-jdk_version=1.7.0.76
-jdk_path=/opt/oracle-jdk-bin-1.7.0.76
+jdk_path=/usr/lib/jvm
 # Testando a existência do diretório Java
 
 testa_arquivos $jdk_path "jdk"
