@@ -1,0 +1,7 @@
+gcc 1 OK
+gcclib 0 Biblioteca Faltando
+jdk 0 Não Existe
+swipl 0 Não Existe
+latex 0 Não Existe
+ghci 0 Não Existe
+ghc 0 Não Existe
