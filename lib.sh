@@ -3,7 +3,9 @@
 # Módulo para o teste de bibliotecas do sistema
 
 log=.lib.txt
-lib_dir=/usr/lib/
+lib_dir_change() {
+	lib_dir=$1
+}
 
 rm .lib.txt
 
@@ -15,7 +17,14 @@ lib_exists() {
 fi
 }
 
+lib_dir_change /usr/lib/mozilla/plugins/
+lib_exists "libflashplayer.so"
+
+lib_dir_change /usr/lib/
 lib_exists "libpython2.7.so"
 lib_exists "libcups.so"
+lib_exists "libglib-2.0.so"
+lib_exists "libcairo.so.2"
+
 
 echo "Teste realizado com sucesso!"
