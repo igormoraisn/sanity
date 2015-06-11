@@ -4,8 +4,8 @@ Regras:
 - Se não se sentir confiante para fazer modificações no branch master, crie um branch para você
 - Não remova nenhum arquivo do branch master
 - Não modifique este arquivo
-- Comandos do git para a melhor utilização:
 - Utilize o Linux para criar os arquivos e fazer testes.
+- Comandos do git para uma melhor utilização:
 
 $ git init
 $ git clone git@github.com:igormoraisn/sanity.git  # Você precisará do ssh(openssh)
