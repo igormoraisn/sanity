@@ -5,6 +5,7 @@ Regras:
 - Não remova nenhum arquivo do branch master
 - Não modifique este arquivo
 - Comandos do git para a melhor utilização:
+- Utilizem o Linux para criar os arquivos e fazer testes.
 
 $ git init
 $ git clone git@github.com:igormoraisn/sanity.git  # Você precisará do ssh(openssh)
