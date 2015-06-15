@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# Universidade Federal de Sergipe
+# Centro de Ciências Exatas e Tecnológicas
+# Departamento de Computação
+# Gerência de Equipamentos e Suporte a Sistemas
+
 log=.log.txt
 
 # Removendo a última checagem

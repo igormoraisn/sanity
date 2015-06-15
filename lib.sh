@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# Universidade Federal de Sergipe
+# Centro de Ciências Exatas e Tecnológicas
+# Departamento de Computação
+# Gerência de Equipamentos e Suporte a Sistemas
+
 # Módulo para o teste de bibliotecas do sistema
 
 log=.lib.txt

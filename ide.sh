@@ -1,11 +1,13 @@
-# Universidade Federal de Sergipe
-# Centro de Ciências Exatas e Tecnologias - CCET
-# Departamento de Computação - DCOMP
-# Sanity
-
 #!/bin/bash
 
+# Universidade Federal de Sergipe
+# Centro de Ciências Exatas e Tecnológicas
+# Departamento de Computação
+# Gerência de Equipamentos e Suporte a Sistemas
+
+
 # Módulo para a detecção e testes acercas das IDE's:
+
 # Eclipse
 # Code::Blocks
 # Geany
