@@ -6,6 +6,8 @@ log=.log.txt
 rm $log
 
 date >> $log
+src=src/
+tmp=tmp/
 
 # Função que verifica a existência de arquivos
 testa_arquivos(){
@@ -17,7 +19,7 @@ testa_arquivos(){
 		printf "$2 0 Não Existe" >> $log
 		printf "\n" >> $log
 		return 0
-fi
+	fi
 }
 
 # GCC
@@ -28,16 +30,16 @@ gcc_path=/usr/bin/gcc
 testa_arquivos $gcc_path "gcc"
 
 if [ $? -eq 1 ]; then
-	cd src
+	cd $src
 	gcc gcc.c -o gcc-test
 	./gcc-test
 	cd ..
-	if  diff src/gcc.txt tmp/gcc_sample.txt ; then
+	if  diff $src"gcc.txt" $tmp"gcc_sample.txt" ; then
 		echo "gcclib 1 OK" >> $log
 	else
 		echo "gcclib 0 Biblioteca Faltando" >> $log
 	fi
-	rm src/gcc.txt
+	rm $src"gcc.txt"
 else
 	echo "gcclib 0 Biblioteca Faltando" >> $log 
   exit 1
@@ -53,17 +55,17 @@ testa_arquivos $jdk_path "jdk"
 if [ $? -eq 1 ]; then
 
 # Comandos de compilação
-	cd src	
+	cd $src	
 	javac Java.java
 	java Java
 	cd ..	
 # Comparando a saída do programa		
-	if  diff src/java.txt tmp/jdk_sample.txt ; then
+	if  diff $src"java.txt" $tmp"jdk_sample.txt" ; then
 		echo "jdk 1 Funcionando" >> $log
 	else
 		echo "jdk 0 Não Funcionando" >> $log
 	fi
-rm src/java.txt
+rm $src"java.txt"
 fi
 
 # SWI-Prolog
@@ -86,19 +88,19 @@ latex_dir=/usr/bin/latex
 testa_arquivos $latex_dir "latex"
 
 if [ $? -eq 1 ]; then
-	cd src
+	cd $src
 	latex latex.tex
 	dvips latex.dvi
 	ps2pdf latex.ps
 	cd ..
-	cmp src/latex.aux tmp/latex_sample.aux
+	cmp $src"latex.aux" $tmp"latex_sample.aux"
 	if [ $? -eq 0 ]; then
 		echo "latex 1 Funcionando" >> $log
 	else
 		echo "latex 0 Não Funcionando" >> $log
 	fi
 fi
-rm src/latex.aux
+rm $src"latex.aux"
 
 # GHC
 
@@ -112,16 +114,16 @@ testa_arquivos $ghci_path "ghci"
 testa_arquivos $ghc_path "ghc"
 
 if [ $? -eq 1 ]; then
-	cd src	
+	cd $src	
 	ghc --make $code_ghc_name
 	./ghc
 	cd ..		
-	if  diff src/haskell.txt tmp/ghc_sample.txt ; then
+	if  diff $src"haskell.txt" $tmp"ghc_sample.txt" ; then
 		echo "ghc 1 Funcionando" >> $log
 	else
 		echo "ghc 0 Não Funcionando" >> $log
 	fi
-	rm src/haskell.txt
+	rm $src"haskell.txt"
 fi
 
 # MYSQL (Mariadb)

@@ -1,0 +1,7 @@
+Tue Jun 16 10:11:24 BRT 2015
+o libreOffice esta instalado.
+iniciando testes...
+conversao DOC -> PDF bem-sucedida! :)
+conversao DOC -> ODF bem-sucedida! :)
+conversao DOC -> ODT bem-sucedida! :)
+O LibreOffice esta funcionando corretamente.
