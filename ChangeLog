@@ -5,10 +5,7 @@ Qui Jun 11 11:44:49 BRT 2015
 - Create the README file
 
 Tue Jun 16 10:13:25 BRT 2015
--add LibreOffice test
--add samples DIR
--add AUTHOR in AUTHORS file
-
-Tue Jun 16 15:00:22 BRT 2015
+- Add the samples DIR
+- Add AUTHOR in AUTHORS file
 - Create the libreoffice.sh file
 - Adding a new collaborator (Artur)
