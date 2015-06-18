@@ -15,3 +15,6 @@ Qui Jun 18 10:47:13 BRT 2015
 - Renaming libreoffice.sh to office.sh
 - Adding error handling on all files
 - Creating the module main.sh
+
+Thu Jun 18 11:11:08 BRT 2015
+- Office bug fixies in error log
