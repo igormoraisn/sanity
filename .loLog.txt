@@ -1,4 +1,4 @@
-Thu Jun 18 11:04:40 BRT 2015
+Thu Jun 18 11:20:32 BRT 2015
 LibreOffice 1 OK
 DOC/PDF 1 OK
 DOC/ODT 1 OK
