@@ -22,7 +22,7 @@ testa_conversao() {
 	if [ -e $1 ]; then
 		echo $2" 1 OK" >> $log
 	else
-		echo $2" 0 Não Converte" >> log
+		echo $2" 0 Não Converte" >> $log
 fi
 }
 
