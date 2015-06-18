@@ -52,6 +52,29 @@ else
   exit 1
 fi
 
+# G++
+
+cpp_path=/usr/bin/g++
+
+testa_arquivos $cpp_path "g++"
+
+if [ $? -eq 1 ]; then
+	cd $src
+	g++ g++.cpp -o cpp-test
+	./cpp-test
+	cd ..
+	if  diff $src"g++.txt" $tmp"g++_sample.txt" ; then
+		echo "g++lib 1 OK" >> $log
+	else
+		echo "gc++lib 0 Biblioteca Faltando" >> $log
+	fi
+	rm $src"g++.txt"
+else
+	echo "g++lib 0 Biblioteca Faltando" >> $log 
+ 	exit 1
+fi
+
+
 # JDK
 
 jdk_path=/usr/lib/jvm
