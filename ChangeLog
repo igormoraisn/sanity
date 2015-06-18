@@ -9,3 +9,9 @@ Tue Jun 16 10:13:25 BRT 2015
 - Add AUTHOR in AUTHORS file
 - Create the libreoffice.sh file
 - Adding a new collaborator (Artur)
+
+Qui Jun 18 10:47:13 BRT 2015
+- Optimizing libreoffice.sh file
+- Renaming libreoffice.sh to office.sh
+- Adding error handling on all files
+- Creating the module main.sh

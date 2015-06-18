@@ -12,7 +12,9 @@ lib_dir_change() {
 	lib_dir=$1
 }
 
-rm .lib.txt
+if [ -e $log ]; then
+	rm .lib.txt
+fi
 
 lib_exists() {	
 	if [ -e $lib_dir$1 ]; then

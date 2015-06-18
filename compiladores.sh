@@ -8,7 +8,9 @@
 log=.log.txt
 
 # Removendo a última checagem
-rm $log
+if [ -e $log ]; then
+	rm $log
+fi
 
 date >> $log
 src=src/

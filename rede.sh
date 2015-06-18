@@ -8,14 +8,17 @@
 
 # Modulo para a detecção de conectividade
 test_dir=www.google.com
-rede=.rede.txt
-rm $rede
+log=.rede.txt
+
+if [ -e $log ]; then
+	rm $rede
+fi
 
 #ifconfig eth0 >> rede.txt
 ping -c3 $test_dir
 	if [ $? -eq 0 ]; then
-		echo "rede 1 OK" >> $rede
+		echo "rede 1 OK" >> $log
 	else
-		echo "rede 0 Não Funcionando" >> $rede
+		echo "rede 0 Não Funcionando" >> $log
 fi
 echo "Teste de rede realizado!"
