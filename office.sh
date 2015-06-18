@@ -11,7 +11,7 @@
 #!/bin/bash
 
 log=.loLog.txt
-receita=samples/receita.doc
+receita=tmp/receita.doc
 
 converte() {
 	loffice --invisible --convert-to pdf:writer_pdf_Export $receita
