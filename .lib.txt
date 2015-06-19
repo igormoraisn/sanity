@@ -1,5 +1,0 @@
-libflashplayer.so 0 Não Existe
-libpython2.7.so 1 OK
-libcups.so 1 OK
-libglib-2.0.so 1 OK
-libcairo.so.2 1 OK

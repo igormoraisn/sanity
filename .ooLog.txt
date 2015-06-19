@@ -1,4 +1,0 @@
-Fri Jun 19 15:57:19 BRT 2015
-OpenOffice 1 OK
-DOC/PDF 1 OK
-DOC/ODT 1 OK
