@@ -10,5 +10,6 @@
 ./rede.sh
 ./compiladores.sh
 ./lib.sh
-./office.sh
+./OpenOffice.sh
+./LibreOffice.sh
 ./ide.sh

@@ -19,3 +19,10 @@ Qui Jun 18 10:47:13 BRT 2015
 Thu Jun 18 11:11:08 BRT 2015
 - Office bug fixies in error log
 - main.sh bug fixies em reference to office.sh
+
+Fri Jun 19 16:00:32 BRT 2015
+- Created OpenOffice.sh
+- Created OpenOffice test in OpenOffice.sh
+- Renamed office.sh to LibreOffice.sh
+- Updated references to tests in main.sh
+- Created OpenOffice log as .oolog.txt
