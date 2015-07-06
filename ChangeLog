@@ -26,3 +26,8 @@ Fri Jun 19 16:00:32 BRT 2015
 - Renamed office.sh to LibreOffice.sh
 - Updated references to tests in main.sh
 - Created OpenOffice log as .oolog.txt
+
+Mon Jul  6 11:23:34 BRT 2015
+- Add DOCS/
+- Add requirements at DOCS/
+- Add descriptions at DOCS/
