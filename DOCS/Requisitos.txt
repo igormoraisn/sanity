@@ -1,0 +1,32 @@
+﻿Requisitos Funcionais
+
+CLIENTES
+RF01 - O sistema de testes deve ser executado sempre ao iniciar o computador;
+RF02 - O sistema de testes deve ser executado sempre após uma instalação;
+RF03 - O sistema de testes deve testar todos os softwares usados em todos computadores do DCOMP; 
+RF03 - O sistema de testes deve relatar, sempre que possível, qual funcionalidade do software testado está com problemas;
+RF04 - O sistema de testes deve relatar ao servidor quais softwares instalados estão com problema;
+RF06 - O sistema de testes deve possuir interface gráfica;
+RF07 - o sistema de testes deve relatar ao usuário quais softwares estão com problemas e, se possível, qual funcionalidade;
+RF08 - O sistema de testes deve informar quais softwares estão instalados nas máquinas;
+RF09 - O sistema de testes deve informar visualmente ao usuário quais softwares estão com problemas;
+
+SERVIDOR
+RF50 - Ao detectar desconexão com clientes, servidor deve relatar este problema ao responsável pela manutenção;
+RF51 - Ao detectar mal-funcionamento em softwares, o servidor deve relatar o problema ao responsável pela manutenção;
+RF53 - Ao detectar falta de conexão com internet
+RF52 - O servidor deve alertar quais computadores estão com problemas;
+RF53 - Ao detectar um aplicativo com mal-funcionamento, o servidor deve solicitar a reinstalação deste;
+RF54 - O servidor deve indicar desconexão aos computadores que ele não conseguir "pingar";
+
+Requisitos não funcionais 
+
+
+RNF01 - Devem ser gerados logs dos testes, contendo as datas;
+RNF02 - É preferível que os testes sejam feitos em linguagem shell script;
+RNF03 - O sistema de testes deve ser empacotado e armazenado no servidor;
+RNF04 - O sistema de testes deve ter controle de versão;
+RNF05 - O sistema de testes deve ter o máximo de testes possíveis;
+RNF06 - O sistema de testes deve receber de forma fácil novos testes;
+
+RNF99 - Fica a cargo do inclusor dos testes, seguir estes requisitos.
