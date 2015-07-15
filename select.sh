@@ -1,7 +1,7 @@
 #!/bin/bash
 
-
-log=~/.sanity/hostname.txt
+hostname=$(hostname)
+log=~/.sanity/$hostname.txt
 
 sanity=~/.sanity/.logs/
 
