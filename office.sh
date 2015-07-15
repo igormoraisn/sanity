@@ -10,19 +10,20 @@
 
 #!/bin/bash
 
-log=.loLog.txt
+log=~/.sanity/.logs/.office.txt
 receita=tmp/receita.doc
+path=~/.sanity/.src/
 
 converte() {
-	loffice --invisible --convert-to pdf:writer_pdf_Export $receita
-	loffice --invisible --convert-to odt:writer8 $receita
+	loffice --invisible --convert-to pdf:writer_pdf_Export $receita --outdir $path
+	loffice --invisible --convert-to odt:writer8 $receita --outdir $path
 }
 
 testa_conversao() {
-	if [ -e $1 ]; then
-		echo $2" 1 OK" >> $log
+	if [ -e $1 ] && [ -e $2 ]; then
+		echo "Sim" >> $log
 	else
-		echo $2" 0 Não Converte" >> $log
+		echo "Não" >> $log
 fi
 }
 
@@ -31,16 +32,14 @@ if [ -e $log ] ; then
 	rm $log
 fi
 
-date >> $log
+echo "LibreOffice" >> $log
 
 if [ -e "/usr/bin/libreoffice" ] ; then
-	echo "LibreOffice 1 OK" >> $log
 	converte	
-	testa_conversao "receita.pdf" "DOC/PDF"
-	testa_conversao "receita.odt" "DOC/ODT"
-	rm receita.pdf
-	rm receita.odt
+	testa_conversao $path"receita.pdf" $path"receita.odt"
+	rm $path"receita.pdf"
+	rm $path"receita.odt"
 
 else 
-	echo "LibreOffice 0 Não Existe" >> $log
+	echo "Não" >> $log
 fi

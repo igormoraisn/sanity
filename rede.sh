@@ -8,17 +8,17 @@
 
 # Modulo para a detecção de conectividade
 test_dir=www.google.com
-log=.rede.txt
+log=~/.sanity/.logs/.rede.txt
 
 if [ -e $log ]; then
-	rm $rede
+	rm $log
 fi
 
 #ifconfig eth0 >> rede.txt
 ping -c3 $test_dir
+	echo "Rede" >> $log	
 	if [ $? -eq 0 ]; then
-		echo "rede 1 OK" >> $log
+		echo "Sim" >> $log
 	else
-		echo "rede 0 Não Funcionando" >> $log
+		echo "Não" >> $log
 fi
-echo "Teste de rede realizado!"

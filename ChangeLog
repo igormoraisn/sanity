@@ -31,3 +31,10 @@ Mon Jul  6 11:23:34 BRT 2015
 - Add DOCS/
 - Add requirements at DOCS/
 - Add descriptions at DOCS/
+
+Qua Jul 15 11:29:05 BRT 2015
+- Create a Sanity GUI (zenity-based)
+- Introducing notifications after the beginning
+- New error tests
+- Adding a provisory logo
+

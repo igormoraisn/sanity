@@ -7,9 +7,25 @@
 
 #!/bin/bash
 
+if [ ! -d ~/.sanity ]; then
+	mkdir ~/.sanity
+	mkdir ~/.sanity/.src
+	mkdir ~/.sanity/.logs
+fi
+
+date=~/.sanity/.date.txt
+
+if [ -e $date ]; then
+	rm $date
+fi
+
+date >> ~/.sanity/.date.txt
+
 ./rede.sh
 ./compiladores.sh
 ./lib.sh
-./OpenOffice.sh
-./LibreOffice.sh
+#./OpenOffice.sh
+./office.sh
 ./ide.sh
+./utility.sh
+./select.sh

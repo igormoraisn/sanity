@@ -7,20 +7,21 @@
 
 # Módulo para o teste de bibliotecas do sistema
 
-log=.lib.txt
+log=~/.sanity/.logs/.lib.txt
 lib_dir_change() {
 	lib_dir=$1
 }
 
 if [ -e $log ]; then
-	rm .lib.txt
+	rm $log
 fi
 
 lib_exists() {	
+	echo $1 >> $log	
 	if [ -e $lib_dir$1 ]; then
-		echo "$1 1 OK" >> $log	
+		echo "Sim" >> $log	
 	else
-		echo "$1 0 Não Existe" >> $log
+		echo "Não" >> $log
 fi
 }
 
@@ -34,4 +35,3 @@ lib_exists "libglib-2.0.so"
 lib_exists "libcairo.so.2"
 
 
-echo "Teste realizado com sucesso!"

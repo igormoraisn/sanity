@@ -5,26 +5,24 @@
 # Departamento de Computação
 # Gerência de Equipamentos e Suporte a Sistemas
 
-log=.log.txt
+log=~/.sanity/.logs/.dev.txt
 
 # Removendo a última checagem
 if [ -e $log ]; then
 	rm $log
 fi
 
-date >> $log
+path=$(pwd)
 src=src/
 tmp=tmp/
+sanity=~/.sanity/
+source=~/.sanity/.src
 
 # Função que verifica a existência de arquivos
 testa_arquivos(){
 	if [ -e $1 ]; then
-		printf "$2 1 OK" >> $log
-		printf "\n" >> $log
 		return 1	
 	else
-		printf "$2 0 Não Existe" >> $log
-		printf "\n" >> $log
 		return 0
 	fi
 }
@@ -34,21 +32,24 @@ testa_arquivos(){
 gcc_path=/usr/bin/gcc
 # Testando a existência do gcc
 
-testa_arquivos $gcc_path "gcc"
+echo "Gcc" >> $log	
+
+testa_arquivos $gcc_path
 
 if [ $? -eq 1 ]; then
 	cd $src
-	gcc gcc.c -o gcc-test
+	gcc gcc.c -o $source/gcc-test
+	cd $source
 	./gcc-test
-	cd ..
-	if  diff $src"gcc.txt" $tmp"gcc_sample.txt" ; then
-		echo "gcclib 1 OK" >> $log
+	cd $path
+	if  diff $source/gcc.txt $tmp"gcc_sample.txt" ; then
+		echo "Sim" >> $log
 	else
-		echo "gcclib 0 Biblioteca Faltando" >> $log
+		echo "Não" >> $log
 	fi
-	rm $src"gcc.txt"
+	rm $source/gcc.txt
 else
-	echo "gcclib 0 Biblioteca Faltando" >> $log 
+	echo "Não" >> $log 
   exit 1
 fi
 
@@ -56,22 +57,24 @@ fi
 
 cpp_path=/usr/bin/g++
 
-testa_arquivos $cpp_path "g++"
+echo "G++" >> $log	
+
+testa_arquivos $cpp_path
 
 if [ $? -eq 1 ]; then
 	cd $src
-	g++ g++.cpp -o cpp-test
+	g++ g++.cpp -o $source/cpp-test
+	cd $source	
 	./cpp-test
-	cd ..
-	if  diff $src"g++.txt" $tmp"g++_sample.txt" ; then
-		echo "g++lib 1 OK" >> $log
+	cd $path
+	if  diff $source/g++.txt $tmp"g++_sample.txt" ; then
+		echo "Sim" >> $log
 	else
-		echo "gc++lib 0 Biblioteca Faltando" >> $log
+		echo "Não" >> $log
 	fi
-	rm $src"g++.txt"
+	rm $source/g++.txt
 else
-	echo "g++lib 0 Biblioteca Faltando" >> $log 
- 	exit 1
+	echo "Não" >> $log 
 fi
 
 
@@ -80,22 +83,27 @@ fi
 jdk_path=/usr/lib/jvm
 # Testando a existência do diretório Java
 
-testa_arquivos $jdk_path "jdk"
+echo "Jdk" >> $log	
+
+testa_arquivos $jdk_path
 
 if [ $? -eq 1 ]; then
 
 # Comandos de compilação
 	cd $src	
-	javac Java.java
+	javac -d $source Java.java
+	cd $source	
 	java Java
-	cd ..	
+	cd $path	
 # Comparando a saída do programa		
-	if  diff $src"java.txt" $tmp"jdk_sample.txt" ; then
-		echo "jdk 1 Funcionando" >> $log
+	if  diff $source/java.txt $tmp"jdk_sample.txt" ; then
+		echo "Sim" >> $log
 	else
-		echo "jdk 0 Não Funcionando" >> $log
+		echo "Não" >> $log
 	fi
-rm $src"java.txt"
+rm $source/java.txt
+else
+	echo "Não" >> $log
 fi
 
 # SWI-Prolog
@@ -103,34 +111,49 @@ fi
 swi_dir=/usr/bin/swipl
 swi_alt=/usr/bin/prolog
 
-testa_arquivos $swi_dir "swipl"
+echo "Swipl" >> $log
+
+testa_arquivos $swi_dir
 
 if [ $? -eq 0 ]; then
 	# Removendo as linhas do arquivo que contenham swipl	
-	sed -i '/swipl/d' $log	
-	testa_arquivos $swi_alt "swipl"
+	#sed -i '/swipl/d' $log	
+	testa_arquivos $swi_alt
+	if [ $? -eq 1 ]; then
+		echo "Sim" >> $log
+	else
+		echo "Não" >> $log
+	fi
+else
+	echo "Sim" >> $log
 fi
 
 # LaTeX (TexLive)
 
 latex_dir=/usr/bin/latex
 
-testa_arquivos $latex_dir "latex"
+echo "Latex" >> $log
+
+testa_arquivos $latex_dir
+
 
 if [ $? -eq 1 ]; then
-	cd $src
-	latex latex.tex
+	cd $source
+	latex $path"/src/latex.tex"
 	dvips latex.dvi
 	ps2pdf latex.ps
-	cd ..
-	cmp $src"latex.aux" $tmp"latex_sample.aux"
+	cd $path
+	cmp $source/latex.aux $tmp"latex_sample.aux"
 	if [ $? -eq 0 ]; then
-		echo "latex 1 Funcionando" >> $log
+		echo "Sim" >> $log
 	else
-		echo "latex 0 Não Funcionando" >> $log
+		echo "Não" >> $log
 	fi
+rm $source/latex.aux
+else
+	echo "Não" >> $log
 fi
-rm $src"latex.aux"
+
 
 # GHC
 
@@ -140,27 +163,47 @@ ghc_path=/usr/bin/ghc
 ghci_path=/usr/bin/ghci
 code_ghc_name=ghc.hs
 
-testa_arquivos $ghci_path "ghci"
-testa_arquivos $ghc_path "ghc"
+echo "Ghc" >> $log
+
+testa_arquivos $ghci_path
+testa_arquivos $ghc_path
+
 
 if [ $? -eq 1 ]; then
 	cd $src	
-	ghc --make $code_ghc_name
+	cp $code_ghc_name $source	
+	cd $source	
+	ghc --make $code_ghc_name	
 	./ghc
-	cd ..		
-	if  diff $src"haskell.txt" $tmp"ghc_sample.txt" ; then
-		echo "ghc 1 Funcionando" >> $log
+	rm $code_ghc_name	
+	cd $path	
+	if  diff $source/haskell.txt $tmp"ghc_sample.txt" ; then
+		echo "Sim" >> $log
 	else
-		echo "ghc 0 Não Funcionando" >> $log
+		echo "Não" >> $log
 	fi
-	rm $src"haskell.txt"
+	rm $source/haskell.txt
+else
+	echo "Não" >> $log
 fi
 
 # MYSQL (Mariadb)
 mysql_path=/usr/bin/mysql
 
 # Verificando a existência do Mysql
-testa_arquivos $mysql_path "mysql"
 
-echo "Teste de compiladores realizado com sucesso!"
+echo "Mysql" >> $log
 
+testa_arquivos $mysql_path
+
+
+if [ $? -eq 1 ]; then
+	echo "Sim" >> $log
+else
+	echo "Não" >> $log
+fi
+
+# PHP
+
+
+# Mono
