@@ -38,3 +38,9 @@ Qua Jul 15 11:29:05 BRT 2015
 - New error tests
 - Adding a provisory logo
 
+Seg Jul 20 19:56:59 BRT 2015
+- Repainting the GUI
+- Remove the OpenOffice.sh ( switch to office.sh )
+- Changing the final log
+- New error logs
+
