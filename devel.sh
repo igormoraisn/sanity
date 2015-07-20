@@ -4,12 +4,18 @@
 # Centro de Ciências Exatas e Tecnológicas
 # Departamento de Computação
 # Gerência de Equipamentos e Suporte a Sistemas
+# Sanity
 
 log=~/.sanity/.logs/.dev.txt
+error=~/.sanity/.logs/.dev-error.txt
 
 # Removendo a última checagem
 if [ -e $log ]; then
 	rm $log
+fi
+
+if [ -e $error ]; then
+	rm $error
 fi
 
 path=$(pwd)
@@ -22,10 +28,13 @@ source=~/.sanity/.src
 testa_arquivos(){
 	if [ -e $1 ]; then
 		return 1	
-	else
+	else		
 		return 0
 	fi
 }
+
+var=1
+
 
 # GCC
 
@@ -49,6 +58,8 @@ if [ $? -eq 1 ]; then
 	fi
 	rm $source/gcc.txt
 else
+	echo "#$var GCC - O compilador GCC não está instalado." >> $error
+	var=$((var+1))		
 	echo "Não" >> $log 
   exit 1
 fi
@@ -74,6 +85,8 @@ if [ $? -eq 1 ]; then
 	fi
 	rm $source/g++.txt
 else
+	echo "#$var G++ - O compilador G++ não está instalado." >> $error
+	var=$((var+1))	
 	echo "Não" >> $log 
 fi
 
@@ -103,29 +116,25 @@ if [ $? -eq 1 ]; then
 	fi
 rm $source/java.txt
 else
+	echo "#$var JDK - O compilador JDK não está instalado." >> $error
+	var=$((var+1))	
 	echo "Não" >> $log
 fi
 
 # SWI-Prolog
 
 swi_dir=/usr/bin/swipl
-swi_alt=/usr/bin/prolog
 
 echo "Swipl" >> $log
 
 testa_arquivos $swi_dir
 
-if [ $? -eq 0 ]; then
-	# Removendo as linhas do arquivo que contenham swipl	
-	#sed -i '/swipl/d' $log	
-	testa_arquivos $swi_alt
-	if [ $? -eq 1 ]; then
-		echo "Sim" >> $log
-	else
-		echo "Não" >> $log
-	fi
-else
+if [ $? -eq 1 ]; then
 	echo "Sim" >> $log
+else
+	echo "#$var SWI-PROLOG - O interpretador SWIPL não está instalado." >> $error
+	var=$((var+1))	
+	echo "Não" >> $log
 fi
 
 # LaTeX (TexLive)
@@ -151,6 +160,8 @@ if [ $? -eq 1 ]; then
 	fi
 rm $source/latex.aux
 else
+	echo "#$var LATEX - A distribuição TexLive não está instalada." >> $error
+	var=$((var+1))	
 	echo "Não" >> $log
 fi
 
@@ -184,6 +195,8 @@ if [ $? -eq 1 ]; then
 	fi
 	rm $source/haskell.txt
 else
+	echo "#$var GHC - O compilador GHC não está instalado." >> $error
+	var=$((var+1))	
 	echo "Não" >> $log
 fi
 
@@ -200,6 +213,8 @@ testa_arquivos $mysql_path
 if [ $? -eq 1 ]; then
 	echo "Sim" >> $log
 else
+	echo "#$var MYSQL - O banco de dados MYSQL não está instalado." >> $error
+	var=$((var+1))	
 	echo "Não" >> $log
 fi
 
@@ -207,3 +222,4 @@ fi
 
 
 # Mono
+

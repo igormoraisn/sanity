@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Módulo de seleção de erros e geração de log final
+
 hostname=$(hostname)
 log=~/.sanity/$hostname.txt
 
@@ -12,11 +14,15 @@ fi
 date >> $log
 
 search() {
-	grep -e Não $1 >> $log
+	if [ -e $1 ]; then
+		echo $2 >> $log
+		cat $1 >> $log
+	fi	
 }
 
-search $sanity".dev.txt"
-search $sanity".util.txt"
-search $sanity".office.txt"
-search $sanity".lib.txt"
-search $sanity".rede.txt"
+search $sanity".dev-error.txt" "COMPILADORES"
+search $sanity".util-error.txt" "UTILITÁRIOS"
+search $sanity".office-error.txt" "OFFICE"
+search $sanity".lib-error.txt" "BIBLIOTECAS"
+search $sanity".net-error.txt" "REDE"
+search $sanity".ide-error.txt" "IDE"

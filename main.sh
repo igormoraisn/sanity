@@ -20,12 +20,17 @@ if [ -e $date ]; then
 fi
 
 date >> ~/.sanity/.date.txt
+hostname=$(hostname)
+log=~/.sanity/$hostname.txt
 
-./rede.sh
-./compiladores.sh
+./network.sh
+./devel.sh
 ./lib.sh
-#./OpenOffice.sh
 ./office.sh
 ./ide.sh
 ./utility.sh
 ./select.sh
+
+#if [ -e $log ]; then
+	#./send.sh
+#fi

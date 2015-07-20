@@ -4,11 +4,16 @@
 # Centro de Ciências Exatas e Tecnológicas
 # Departamento de Computação
 # Gerência de Equipamentos e Suporte a Sistemas
+# Sanity
 
 
 # Módulo para a detecção e testes acercas das IDE's
 
 log=~/.sanity/.logs/.ide.txt
+
+error=~/.sanity/.logs/.ide-error.txt
+
+var=1
 
 ide_exists(){
 	if [ -e $1 ]; then 
@@ -22,6 +27,9 @@ if [ -e $log ]; then
 	rm $log
 fi
 
+if [ -e $error ]; then
+	rm $error
+fi
 
 # Eclipse
 
@@ -36,6 +44,8 @@ if [ $? -eq 1 ]; then
 
 else
 	echo "Não" >> $log
+	echo "#$var ECLIPSE - O IDE Eclipse não está instalado." >> $error
+	var=$((var+1))	
 fi
 
 # Code::Blocks
@@ -51,6 +61,8 @@ if [ $? -eq 1 ]; then
 
 else
 	echo "Não" >> $log
+	echo "#$var CODEBLOCKS - O IDE Codeblocks não está instalado." >> $error
+	var=$((var+1))	
 fi
 
 # Geany
@@ -70,11 +82,13 @@ if [ $? -eq 1 ]; then
 	fi
 else
 	echo "Não" >> $log
+	echo "#$var GEANY - O IDE Geany não está instalado." >> $error
+	var=$((var+1))	
 fi
 
 # Gedit
 
-gedit=/usr/bin/pluma
+gedit=/usr/bin/gedit
 
 echo "Gedit" >> $log
 
@@ -85,6 +99,8 @@ if [ $? -eq 1 ]; then
 
 else
 	echo "Não" >> $log
+	echo "#$var GEDIT - O editor Gedit não está instalado." >> $error
+	var=$((var+1))	
 fi
 
 
@@ -101,6 +117,8 @@ if [ $? -eq 1 ]; then
 
 else
 	echo "Não" >> $log
+	echo "#$var NETBEANS - O IDE Netbeans não está instalado." >> $error
+	var=$((var+1))	
 fi
 
 

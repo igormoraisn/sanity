@@ -2,7 +2,9 @@
 
 # Módulo para a exibição da notificação inicial
 
-name=select.txt
+hostname=$(hostname)
+
+name=~/.sanity/$hostname.txt
 
 call(){
 	if [ $? -eq 5 ]; then 
@@ -12,16 +14,19 @@ call(){
 	fi
 }
 
-x=$(wc -l $name)
-partes=($x)
+x=$(grep "#" $name | wc -l)
+#partes=($x)
 
-erros=$((${partes[0]} - 1))
+#erros=$((${partes[0]} - 1))
 
-if [ $erros -eq 0 ]; then 	
-	zenity --notification --window-icon="info" --text="Nenhum erro foi encontrado!" --timeout=5
+if [ $x -eq 0 ]; then 	
+	zenity --notification --window-icon="info" --text="Nenhum erro foi encontrado!" --timeout=7
+	call
+elif [ $x -eq 1 ]; then
+	zenity --notification --window-icon="info" --text="$x erro foi encontrado!" --timeout=7
 	call
 else
-	zenity --notification --window-icon="info" --text="$erros erros foram encontrados!" --timeout=5
+	zenity --notification --window-icon="info" --text="$x erros foram encontrados!" --timeout=7
 	call
 fi
 
