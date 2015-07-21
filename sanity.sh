@@ -66,7 +66,7 @@ choice="$(zenity --width=500 --height=480 --list --window-icon=$iconpath --ok-la
   "Rede													$rede" \
   "Compiladores												$dev" \
   "IDE														$ide" \
-  "Utilitários(Browsers, editores)								$util" \
+  "Utilitários(Browsers, editores)									$util" \
   "Office													$office" \
   "Bibliotecas do Sistema										$lib" \
   "Realizar teste novamente" \
@@ -108,7 +108,7 @@ choice="$(zenity --width=500 --height=480 --list --window-icon=$iconpath --ok-la
 	fi
 
 ;;
-      "Utilitários(Browsers, editores)								$util" )
+      "Utilitários(Browsers, editores)									$util" )
       cat $log.util.txt | zenity --list --title "Sanity" --window-icon=$iconpath --text " Abaixo estão listados as informações sobre os utilitários:\n" --column "Utilitários"  --column "Ativo?" --width=500 --height=400 --ok-label "Voltar" --cancel-label "Ver Erros"
 	if [ $? -eq 1 ]; then		
 		if [ -e $util_error ]; then		
