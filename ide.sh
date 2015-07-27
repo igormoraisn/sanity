@@ -44,7 +44,7 @@ if [ $? -eq 1 ]; then
 
 else
 	echo "Não" >> $log
-	echo "#$var ECLIPSE - O IDE Eclipse não está instalado." >> $error
+	echo "#$var ECLIPSE - O IDE Eclipse não está instalado" >> $error
 	var=$((var+1))	
 fi
 
@@ -57,8 +57,16 @@ echo "Code::Blocks" >> $log
 ide_exists $codeblocks
 
 if [ $? -eq 1 ]; then
-	echo "Sim" >> $log
-
+	codeblocks -ns &
+	sleep 3
+	code=$(pidof codeblocks)
+	kill $code
+	if [ $? -eq 0 ]; then
+		echo "Sim" >> $log
+	else
+		echo "Não" >> $log
+		echo "#$var CODEBLOCKS - erro na inicialização" >> $error
+	fi
 else
 	echo "Não" >> $log
 	echo "#$var CODEBLOCKS - O IDE Codeblocks não está instalado." >> $error
@@ -79,6 +87,8 @@ if [ $? -eq 1 ]; then
 		echo "Sim" >> $log
 	else
 		echo "Não" >> $log
+		echo "#$var GEANY - erro na inicialização" >> $error
+		var=$((var+1))	
 	fi
 else
 	echo "Não" >> $log
@@ -95,7 +105,19 @@ echo "Gedit" >> $log
 ide_exists $gedit
 
 if [ $? -eq 1 ]; then
-	echo "Sim" >> $log
+	gedit -V
+	ret=$?	
+	if [ $ret -eq 0 ]; then
+		echo "Sim" >> $log
+	elif [ $ret -eq 127 ]; then
+		echo "Não" >> $log	
+		echo "#$? GEDIT - gedit: comando não encontrado" >> $error
+		var=$((var+1))
+	
+	else
+		echo "Não" >> $log
+		echo "#$? GEDIT - erro na inicialização" >> $error
+	fi
 
 else
 	echo "Não" >> $log
@@ -128,5 +150,4 @@ fi
 # Bluefish ?
 # Anjuta ?
 # Emacs ?
-# ...
 

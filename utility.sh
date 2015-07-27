@@ -47,15 +47,15 @@ else
 	var=$((var+1))	
 fi
 
-# Chromium
-chromium=/usr/bin/google-chrome-stable
+# Google Chrome
+chrome=/usr/bin/google-chrome-stable
 
 echo "Navegador Google Chrome" >> $log
 
-testa_programas $chromium "Chromium"
+testa_programas $chrome
 
 if [ $? -eq 1 ]; then
-	$chromium --version
+	$chrome --version
 	if [ $? -eq 0 ]; then
 		echo "Sim" >> $log
 	else 
@@ -77,7 +77,17 @@ testa_programas $pdf
 
 
 if [ $? -eq 1 ]; then
-	echo "Sim" >> $log
+	$pdf &
+	sleep 1	
+	num=$(pidof evince)
+	kill $num
+	if [ $? -eq 0 ]; then	
+		echo "Sim" >> $log
+	else
+		echo "Não" >> $log
+		echo "#$var EVINCE - falha de execução" >> $error
+		var=$((var+1))	
+	fi
 else
 	echo "Não" >> $log
 	echo "#$var EVINCE - O leitor de pdf Evince não está instalado." >> $error
@@ -94,7 +104,14 @@ testa_programas $gimp
 
 
 if [ $? -eq 1 ]; then	
-	echo "Sim" >> $log
+	$gimp -v
+	if [ $? -eq 0 ]; then	
+		echo "Sim" >> $log
+	else
+		echo "Não" >> $log
+		echo "#$var GIMP - erro na inicialização" >> $error
+		var=$((var+1))	
+	fi
 else
 	echo "Não" >> $log
 	echo "#$var GIMP - O editor de imagens Gimp não está instalado." >> $error
@@ -110,7 +127,14 @@ echo "Gpicview" >> $log
 testa_programas $show
 
 if [ $? -eq 1 ]; then	
-	echo "Sim" >> $log
+	$show -v
+	if [ $? -eq 0 ]; then	
+		echo "Sim" >> $log
+	else
+		echo "Não" >> $log
+		echo "#$var GPICVIEW - erro na inicialização" >> $error
+		var=$((var+1))	
+	fi
 else
 	echo "Não" >> $log
 	echo "#$var GPICVIEW - O visualizador de imagens não está instalado." >> $error
@@ -130,8 +154,15 @@ testa_programas $unrar "Unrar"
 
 
 if [ $? -eq 1 ]; then
-	# Fazer
-	echo "Sim" >> $log
+	$unrar e tmp/rar.doc.rar ~/.sanity/.src
+	if [ -e ~/.sanity/.src/rar.doc ]; then
+		echo "Sim" >> $log
+		rm ~/.sanity/.src/rar.doc
+	else
+		echo "Não" >> $log
+		echo "#$var UNRAR - falha ao extrair os arquivos" >> $error
+		var=$((var+1))
+	fi
 else
 	echo "Não" >> $log
 	echo "#$var UNRAR - Unrar não está instalado." >> $error
@@ -147,13 +178,15 @@ echo "Unzip" >> $log
 testa_programas $unzip
 
 if [ $? -eq 1 ]; then	
-	#unzip tmp/zip.zip -d $unzip_path
-	#if [ -e $unzip_path"zip.pdf" ]; then	
+	$unzip tmp/zip.doc.zip -d $unzip_path
+	if [ -e $unzip_path"zip.doc" ]; then	
 		echo "Sim" >> $log
-	#	rm $unzip_path"zip.pdf"	
-	#else
-	#	echo "Não" >> $log
-	#fi
+		rm $unzip_path"zip.doc"	
+	else
+		echo "Não" >> $log
+		echo "#$var UNZIP - falha ao extrair arquivos" >> $error
+		var=$((var+1))		
+	fi
 else
 	echo "Não" >> $log
 	echo "#$var UNZIP - Unzip não está instalado." >> $error
@@ -170,8 +203,14 @@ testa_programas $file_roller
 
 
 if [ $? -eq 1 ]; then
-	# engrapa -h .tgz
-	echo "Sim" >> $log
+	$file_roller -v
+	if [ $? -eq 0 ]; then
+		echo "Sim" >> $log
+	else
+		echo "Não" >> $log
+		echo "#$var FILE-ROLLER - erro na inicialização" >> $error
+		var=$((var+1))
+	fi		
 else
 	echo "Não" >> $log
 	echo "#$var FILE-ROLLER - O gerenciador de pacotes File-Roller não está instalado." >> $error

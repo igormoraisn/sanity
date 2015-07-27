@@ -26,6 +26,9 @@ testa_conversao() {
 		echo "Sim" >> $log
 	else
 		echo "Não" >> $log
+		echo "#$var LIBREOFFICE - erro ao realizar conversão doc-odt/pdf" >> $error
+		var=$((var+1))	
+		exit
 fi
 }
 
@@ -44,13 +47,18 @@ fi
 echo "LibreOffice" >> $log
 
 if [ -e "/usr/bin/libreoffice" ] ; then
-	converte "loffice"	
-	testa_conversao $path"receita.pdf" $path"receita.odt"
-	rm $path"receita.pdf"
-	rm $path"receita.odt"
+	if [ -e "/usr/bin/loffice" ]; then	
+		converte "loffice"	
+		testa_conversao $path"receita.pdf" $path"receita.odt"
+		rm $path"receita.pdf"
+		rm $path"receita.odt"
+	else
+		echo "#$var LIBREOFFICE - loffice: comando não encontrado" >> $error
+		var=$((var+1))	
+	fi
 
 else 	
-	echo "#$var LIBREOFFICE - O pacote LibreOffice não está instalado." >> $error
+	echo "#$var LIBREOFFICE - O pacote libreoffice não está instalado" >> $error
 	var=$((var+1))		
 	echo "Não" >> $log
 fi

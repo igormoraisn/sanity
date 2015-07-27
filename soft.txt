@@ -1,9 +1,9 @@
 Gerenciador de Arquivos
-Caja
+Thunar
 Leitor de Pdf
-Atril
+Evince
 Visualizador de Imagens
-Shotwell
+Gpicview
 Browser
 Mozilla Firefox
 Reprodutor de Vídeo
@@ -11,7 +11,7 @@ Vlc
 Reprodutor de Áudio
 Audacious
 Gerenciador de Pacotes
-Engrampa
+File-Roller
 Bloco de Notas
 Leafpad
 Editor de texto
