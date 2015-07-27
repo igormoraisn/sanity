@@ -1,9 +1,10 @@
 Regras:
 
-- Ao modificar algum dos arquivos, insira a data e as modificações no arquivo ChangeLog
-- Se não se sentir confiante para fazer modificações no branch master, crie um branch para você
-- Não remova nenhum arquivo do branch master
-- Não modifique este arquivo
+- Primeiramente, adicione seu nome e email ao arquivo AUTHORS.
+- Ao modificar algum dos arquivos, insira a data e as modificações no arquivo ChangeLog.
+- Se não se sentir confiante para fazer modificações no branch master, crie um branch para você.
+- Não remova nenhum arquivo do branch master.
+- Não modifique este arquivo.
 - Utilize o Linux para criar os arquivos e fazer testes.
 - Comandos do git para uma melhor utilização:
 
