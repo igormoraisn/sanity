@@ -79,11 +79,11 @@ if {$dev||$util||$office||$lib||$ide||$net} {
 }
 
 
-toplevel .w
-label .w.problema -textvariable problema
-button .w.sair -text "Sair" -command {exit}
-button .w.refazer -text "Refazer Teste" -command {exec sh main.sh}
-grid .w.problema -row 0 -column 0 -columnspan 3
-grid .w.sair -row 2 -column 0
-grid .w.refazer -row 2 -column 1
-wm title .w "   Sanity   "
+
+label .problema -textvariable problema
+button .sair -text "Sair" -command {exit}
+button .refazer -text "Refazer Teste" -command {exec sh main.sh}
+grid .problema -row 0 -column 0 -columnspan 3
+grid .sair -row 2 -column 0
+grid .refazer -row 2 -column 1
+wm title . "   Sanity   "
