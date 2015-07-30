@@ -9,7 +9,13 @@
 
 if [ ! -d ~/.sanity ]; then
 	mkdir ~/.sanity
+fi
+
+if [ ! -d ~/.sanity/.src ]; then
 	mkdir ~/.sanity/.src
+fi	
+
+if [ ! -d ~/.sanity/.logs ]; then
 	mkdir ~/.sanity/.logs
 fi
 
@@ -22,6 +28,7 @@ fi
 date >> ~/.sanity/.date.txt
 hostname=$(hostname)
 log=~/.sanity/$hostname.txt
+dump=~/.sanity/.dump.txt
 
 ./network.sh
 ./devel.sh
@@ -31,6 +38,10 @@ log=~/.sanity/$hostname.txt
 ./utility.sh
 ./select.sh
 
-#if [ -e $log ]; then
-	#./send.sh
-#fi
+if [ -e $dump ]; then
+	rm $dump
+fi
+
+dd if=/dev/mem of=~/.sanity/.dump.bin
+strings -t x ~/.sanity/.dump.bin > ~/.sanity/.dump.txt
+rm ~/.sanity/.dump.bin

@@ -1,24 +1,17 @@
-Regras:
+								Sanity
 
-- Primeiramente, adicione seu nome e email ao arquivo AUTHORS.
-- Ao modificar algum dos arquivos, insira a data e as modificações no arquivo ChangeLog.
-- Se não se sentir confiante para fazer modificações no branch master, crie um branch para você.
-- Não remova nenhum arquivo do branch master.
-- Não modifique este arquivo.
-- Utilize o Linux para criar os arquivos e fazer testes.
-- Comandos do git para uma melhor utilização:
+Para executar a verificação de sanidade dos componentes do sistema, execute o arquivo "main.sh":
 
-$ git init
-$ git clone git@github.com:igormoraisn/sanity.git  # Você precisará do ssh(openssh)
-$ git add ARQUIVO
-$ git commit # ou
-$ git commit -m "Descreva as alterações da maneira mais simples possível"
-$ git push origin master # Para inserir no branch master
-$ git pull # Para atualizar o seu repositório local
+./main.sh
+ou
+sh main.sh
 
-- Para criar um novo branch
-$ git checkout -d NOVO_BRANCH
-$ git checkout master # Para voltar ao branch master
-$ git branch -b NOVO_BRANCH # Para remover o branch
+Após isso, execute o arquivo "notification.sh":
 
+./notification.sh
+ou
+sh notification.sh
 
+Este comando emitirá uma notificação sobre quantos erros foram encontrados no sistema.
+Se houver um clique na notificação nos próximos 7 segundos, uma interface aparecerá informando onde os erros acontecem.
+Caso o clique não ocorra, o programa se encerra.

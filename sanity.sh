@@ -20,6 +20,15 @@ ide_error=~/.sanity/.logs/.ide-error.txt
 net_error=~/.sanity/.logs/.net-error.txt
 
 
+checa_testes(){
+	if [ -d ~/.sanity ]; then
+		return 1
+	else
+		return 0	
+	fi
+}
+
+
 checa_erros(){
 if [ -e $dev_error ]; then
 	dev="!!"
@@ -76,108 +85,136 @@ choice="$(zenity --width=500 --height=480 --list --window-icon=$iconpath --ok-la
   "Sobre" \
   "Sair")"
 
-  case "${choice}" in
-     "Rede													$rede" )     
-	cat $log.net.txt | zenity --list --title "Sanity" --window-icon=$iconpath --text " Abaixo está listado se há conectividade:\n" --column "Interface de Rede" --column "Ativa?" --width=500 --height=400 --ok-label "Voltar" --cancel-label "Ver Erros"
-	if [ $? -eq 1 ]; then		
-		if [ -e $net_error ]; then		
-			cat $net_error | zenity --text-info --title "Sanity" --text " Abaixo estão listados os erros ativos:\n" --window-icon=$iconpath --ok-label "Voltar" --width=500 --height=400 
+case "${choice}" in
+	"Rede													$rede" )     
+		checa_testes
+		if [ $? -eq 1 ]; then	
+			cat $log.net.txt | zenity --list --title "Sanity" --window-icon=$iconpath --text " Abaixo está listado se há conectividade:\n" --column "Interface de Rede" --column "Ativa?" --width=500 --height=400 --ok-label "Voltar" --cancel-label "Ver Erros"
+			if [ $? -eq 1 ]; then		
+				if [ -e $net_error ]; then		
+					cat $net_error | zenity --text-info --title "Sanity" --text " Abaixo estão listados os erros ativos:\n" --window-icon=$iconpath --ok-label "Voltar" --width=500 --height=400 
+				else
+					echo "Nenhum erro foi encontrado!" | zenity --text-info --title "Sanity" --window-icon=$iconpath --ok-label "Voltar" --width=500 --height=400 
+				fi
+			fi
 		else
-			echo "Nenhum erro foi encontrado!" | zenity --text-info --title "Sanity" --window-icon=$iconpath --ok-label "Voltar" --width=500 --height=400 
-		fi
-	fi
+			zenity --info --text="Por favor, realize um teste!" --title="Nenhum teste foi encontrado!"
+		fi 
 ;;
-      "Compiladores												$dev" )
-       cat $log.dev.txt | zenity --list --title "Sanity" --window-icon=$iconpath --text " Abaixo estão listados as informações sobre os compiladores ativos:\n" --column "Compiladores" --column "Ativo?" --width=500 --height=400 --ok-label "Voltar" --cancel-label "Ver Erros"
-	if [ $? -eq 1 ]; then
-		if [ -e $dev_error ]; then		
-			cat $dev_error | zenity --text-info --title "Sanity" --text " Abaixo estão listados os erros ativos:\n" --window-icon=$iconpath --ok-label "Voltar" --width=500 --height=400 
+	"Compiladores												$dev" )
+		checa_testes
+		if [ $? -eq 1 ]; then		
+			cat $log.dev.txt | zenity --list --title "Sanity" --window-icon=$iconpath --text " Abaixo estão listados as informações sobre os compiladores ativos:\n" --column "Compiladores" --column "Ativo?" --width=500 --height=400 --ok-label "Voltar" --cancel-label "Ver Erros"
+			if [ $? -eq 1 ]; then
+				if [ -e $dev_error ]; then		
+					cat $dev_error | zenity --text-info --title "Sanity" --text " Abaixo estão listados os erros ativos:\n" --window-icon=$iconpath --ok-label "Voltar" --width=500 --height=400 
+				else
+					echo "Nenhum erro foi encontrado!" | zenity --text-info --title "Sanity" --window-icon=$iconpath --ok-label "Voltar" --width=500 --height=400 
+				fi
+			fi
 		else
-			echo "Nenhum erro foi encontrado!" | zenity --text-info --title "Sanity" --window-icon=$iconpath --ok-label "Voltar" --width=500 --height=400 
-		fi
-	fi
+			zenity --info --text="Por favor, realize um teste!" --title="Nenhum teste foi encontrado!"
+		fi 
 ;;  
-      "IDE														$ide" )
-       cat $log.ide.txt | zenity --list --title "Sanity" --window-icon=$iconpath --text " Abaixo estão listados as informações sobre as IDE's ativas:\n" --column "Ambiente de Desenvolvimento Integrado" --column "Ativo?" --width=500 --height=400 --ok-label "Voltar" --cancel-label "Ver Erros"
-	if [ $? -eq 1 ]; then	
-		if [ -e $ide_error ]; then		
-			cat $ide_error | zenity --text-info --title "Sanity" --text " Abaixo estão listados os erros ativos:\n" --window-icon=$iconpath --ok-label "Voltar" --width=500 --height=400 
-		else
-			echo "Nenhum erro foi encontrado!" | zenity --text-info --title "Sanity" --window-icon=$iconpath --ok-label "Voltar" --width=500 --height=400 
-		fi
-	fi
+	"IDE														$ide" )
+		checa_testes
+		if [ $? -eq 1 ]; then	       
+			cat $log.ide.txt | zenity --list --title "Sanity" --window-icon=$iconpath --text " Abaixo estão listados as informações sobre as IDE's ativas:\n" --column "Ambiente de Desenvolvimento Integrado" --column "Ativo?" --width=500 --height=400 --ok-label "Voltar" --cancel-label "Ver Erros"
+			if [ $? -eq 1 ]; then	
+				if [ -e $ide_error ]; then		
+					cat $ide_error | zenity --text-info --title "Sanity" --text " Abaixo estão listados os erros ativos:\n" --window-icon=$iconpath --ok-label "Voltar" --width=500 --height=400 
+				else
+					echo "Nenhum erro foi encontrado!" | zenity --text-info --title "Sanity" --window-icon=$iconpath --ok-label "Voltar" --width=500 --height=400 
+				fi
+			fi
 
+		else
+			zenity --info --text="Por favor, realize um teste!" --title="Nenhum teste foi encontrado!"
+		fi 
 ;;
       "Utilitários(Browsers, editores)									$util" )
-      cat $log.util.txt | zenity --list --title "Sanity" --window-icon=$iconpath --text " Abaixo estão listados as informações sobre os utilitários:\n" --column "Utilitários"  --column "Ativo?" --width=500 --height=400 --ok-label "Voltar" --cancel-label "Ver Erros"
-	if [ $? -eq 1 ]; then		
-		if [ -e $util_error ]; then		
-			cat $util_error | zenity --text-info --title "Sanity" --text " Abaixo estão listados os erros ativos:\n" --window-icon=$iconpath --ok-label "Voltar" --width=500 --height=400 
+		checa_testes
+		if [ $? -eq 1 ]; then	      
+			cat $log.util.txt | zenity --list --title "Sanity" --window-icon=$iconpath --text " Abaixo estão listados as informações sobre os utilitários:\n" --column "Utilitários"  --column "Ativo?" --width=500 --height=400 --ok-label "Voltar" --cancel-label "Ver Erros"
+			if [ $? -eq 1 ]; then		
+				if [ -e $util_error ]; then		
+					cat $util_error | zenity --text-info --title "Sanity" --text " Abaixo estão listados os erros ativos:\n" --window-icon=$iconpath --ok-label "Voltar" --width=500 --height=400 
+				else
+					echo "Nenhum erro foi encontrado!" | zenity --text-info --title "Sanity" --window-icon=$iconpath --ok-label "Voltar" --width=500 --height=400 
+				fi
+			fi
 		else
-			echo "Nenhum erro foi encontrado!" | zenity --text-info --title "Sanity" --window-icon=$iconpath --ok-label "Voltar" --width=500 --height=400 
-		fi
-	fi
+			zenity --info --text="Por favor, realize um teste!" --title="Nenhum teste foi encontrado!"
+		fi 
 ;;  
       "Office													$office" )
-       cat $log.office.txt | zenity --list --title "Sanity" --window-icon=$iconpath --text " Abaixo estão listados as informações sobre o LibreOffice:\n" --column "Pacote Office" --column "Em funcionamento?" --width=500 --height=400 --ok-label "Voltar" --cancel-label "Ver Erros"
-	if [ $? -eq 1 ]; then		
-		if [ -e $office_error ]; then		
-			cat $office_error | zenity --text-info --title "Sanity" --text " Abaixo estão listados os erros ativos:\n" --window-icon=$iconpath --ok-label "Voltar" --width=500 --height=400 
+		checa_testes
+		if [ $? -eq 1 ]; then	         
+			cat $log.office.txt | zenity --list --title "Sanity" --window-icon=$iconpath --text " Abaixo estão listados as informações sobre o LibreOffice:\n" --column "Pacote Office" --column "Em funcionamento?" --width=500 --height=400 --ok-label "Voltar" --cancel-label "Ver Erros"
+			if [ $? -eq 1 ]; then		
+				if [ -e $office_error ]; then		
+					cat $office_error | zenity --text-info --title "Sanity" --text " Abaixo estão listados os erros ativos:\n" --window-icon=$iconpath --ok-label "Voltar" --width=500 --height=400 
+				else
+					echo "Nenhum erro foi encontrado!" | zenity --text-info --title "Sanity" --window-icon=$iconpath --ok-label "Voltar" --width=500 --height=400 
+				fi
+			fi
 		else
-			echo "Nenhum erro foi encontrado!" | zenity --text-info --title "Sanity" --window-icon=$iconpath --ok-label "Voltar" --width=500 --height=400 
-		fi
-	fi
+			zenity --info --text="Por favor, realize um teste!" --title="Nenhum teste foi encontrado!"
+		fi 
 ;;  
 
 	"Bibliotecas do Sistema										$lib" )
-       cat $log.lib.txt | zenity --list --title "Sanity" --window-icon=$iconpath --text " Abaixo estão listados informações sobre as principais bibliotecas:\n" --column "Bibliotecas do Sistema" --column "Ativa?"  --width=500 --height=400 --ok-label "Voltar" --cancel-label "Ver Erros"
-	if [ $? -eq 1 ]; then		
-		if [ -e $lib_error ]; then		
-			cat $lib_error | zenity --text-info --title "Sanity" --text " Abaixo estão listados os erros ativos:\n" --window-icon=$iconpath --ok-label "Voltar" --width=500 --height=400 
-		else
-			echo "Nenhum erro foi encontrado!" | zenity --text-info --title "Sanity" --window-icon=$iconpath --ok-label "Voltar" --width=500 --height=400 
+		checa_testes
+		if [ $? -eq 1 ]; then	         
+			cat $log.lib.txt | zenity --list --title "Sanity" --window-icon=$iconpath --text " Abaixo estão listados informações sobre as principais bibliotecas:\n" --column "Bibliotecas do Sistema" --column "Ativa?"  --width=500 --height=400 --ok-label "Voltar" --cancel-label "Ver Erros"
+			if [ $? -eq 1 ]; then		
+				if [ -e $lib_error ]; then		
+				cat $lib_error | zenity --text-info --title "Sanity" --text " Abaixo estão listados os erros ativos:\n" --window-icon=$iconpath --ok-label "Voltar" --width=500 --height=400 
+			else
+				echo "Nenhum erro foi encontrado!" | zenity --text-info --title "Sanity" --window-icon=$iconpath --ok-label "Voltar" --width=500 --height=400 
+			fi
 		fi
-	fi
+		else
+			zenity --info --text="Por favor, realize um teste!" --title="Nenhum teste foi encontrado!"
+		fi 
 ;;  
 
       "Realizar teste novamente" )
 		./main.sh | zenity --progress --pulsate --text="Aguarde um instante. Estamos realizando os testes..." --no-cancel --ok-label "Finalizado!"
-
 ;;  
 
 	"Data da última checagem" )
        cat $sanity.date.txt | zenity --list --title "Sanity" --window-icon=$iconpath --text " Abaixo está a data do último teste realizado pelo Sanity:\n" --column "Data"  --width=500 --height=400 --ok-label "Voltar"
 ;; 
 
-		"Lista de softwares padrão" )
-       cat soft.txt | zenity --list --title "Sanity" --window-icon=$iconpath --text " \n" --column "Função"  --column "Programa"  --width=500 --height=400 --ok-label "Voltar"
-
+	"Lista de softwares padrão" )
+		cat soft.txt | zenity --list --title "Sanity" --window-icon=$iconpath --text " \n" --column "Função"  --column "Programa"  --width=500 --height=400 --ok-label "Voltar"
 ;;
-      "Reportar erro ao servidor" )
-	if [ ! -e $sanity ]; then
-		zenity --warning --text="Por favor, realize uma nova checagem !"
-	else	
-		date >> $sanity.msg.txt	
-		whoami >> $sanity.msg.txt       
-		zenity --title "Sanity" --checkbox="Eu tenho ciência da informação que enviarei e assumo todos os meus atos." --text-info --window-icon=$iconpath --editable --ok-label "Enviar" --width=700 --height=500 >> $sanity.msg.txt	   
-		if [ $? -eq 0 ]; then 					
-			# Comando para enviar o texto			
-			zenity --info --text "Sua mensagem foi enviada com sucesso!" --title "Sucesso!"
+
+	"Reportar erro ao servidor" )
+		if [ ! -e $sanity ]; then
+			zenity --warning --text="Por favor, realize uma nova checagem !"
+		else	
+			date >> $sanity.msg.txt	
+			whoami >> $sanity.msg.txt       
+			zenity --title "Sanity" --checkbox="Eu tenho ciência da informação que enviarei e assumo todos os meus atos." --text-info --window-icon=$iconpath --editable --ok-label "Enviar" --width=700 --height=500 >> $sanity.msg.txt	   
+			if [ $? -eq 0 ]; then 					
+				# Comando para enviar o texto			
+				zenity --info --text "Sua mensagem foi enviada com sucesso!" --title "Sucesso!"
+			fi
+			rm $sanity.msg.txt
 		fi
-		rm $sanity.msg.txt
-fi
 ;;  
 
-		"Sobre" )
-       cat README.md | zenity --text-info --title "	Sobre" --window-icon=$iconpath --ok-label "Voltar" --width=500 --height=400 
+	"Sobre" )
+		cat README.md | zenity --text-info --title "	Sobre" --window-icon=$iconpath --ok-label "Voltar" --width=500 --height=400 
 ;; 
    
-  *)
+	*)
 		echo "Obrigado por utilizar o Sanity :)"          
 		break
-          ;;
-        esac
-  
+;;
+esac
 done
 
 else 
