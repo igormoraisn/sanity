@@ -53,7 +53,7 @@ set problema " "
 #set net 0
 
 proc testar {dev util office lib ide net} {
-	if {$dev||$util||$office||$lib||$ide||$net} { 
+	if {$dev||$util||$office||$lib||$ide||$net} {
 		set fdev "~/.sanity/.logs/.dev-error.txt"
 		set futil "~/.sanity/.logs/.util-error.txt"
 		set foffice "~/.sanity/.logs/.office-error.txt"
@@ -61,21 +61,21 @@ proc testar {dev util office lib ide net} {
 		set fide "~/.sanity/.logs/.ide-error.txt"
 		set fnet "~/.sanity/.logs/.net-error.txt"
 		set problema " "
-		
-		append problema "Foram encontrados os seguintes problemas:\n\n\n" 
+
+		append problema "Foram encontrados os seguintes problemas:\n\n"
 		if {$net} {
 			append problema "-Sem conexão de rede \n\n"
 		}
-		
+
 		if {$dev} {
 			append problema " - Ferramentas de desenvolvimento \n"
 			set entrada [open $fdev]
 			set arquivo [read $entrada]
 			append problema $arquivo
 			append problema "\n"
-			
+
 		}
-		
+
 		if {$util} {
 			append problema " - Utilitários \n"
 			set entrada [open $futil]
@@ -114,15 +114,22 @@ proc testar {dev util office lib ide net} {
 }
 
 set problema [testar $dev $util $office $lib $ide $net]
-wm protocol . WM_DELETE_WINDOW {EXIT}
+
+wm resizable . 0 0
+set x [expr {([winfo screenwidth .] - 570)/2}]
+set y [expr {([winfo screenheight .] - 370)/2}]
 wm title . "   Sanity   "
-label .problema -textvariable problema -justify left
+#label .problema -textvariable problema -justify left
+text .problema
+.problema insert end $problema
 button .sair -text "Sair" -command {exit}
 button .refazer -text "Refazer Teste" -command {
 	exec wish refazer.tcl
 	set dev 0
-	set problema [testar $dev $util $office $lib $ide $net]}
-grid .problema -row 0 -column 0 -columnspan 3
-grid .sair -row 2 -column 2 -sticky w
-grid .refazer -row 2 -column 1 -sticky e
-
+	set problema [testar $dev $util $office $lib $ide $net]
+	.problema replace 1.0 end $problema
+	}
+grid .problema -row 1 -column 1 -columnspan 2
+grid .sair -row 2 -column 2 -sticky ws
+grid .refazer -row 2 -column 1 -sticky es
+wm geometry . 570x370+$x+$y
