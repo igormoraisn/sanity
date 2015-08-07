@@ -38,10 +38,17 @@ dump=~/.sanity/.dump.txt
 ./utility.sh
 ./select.sh
 
-if [ -e $dump ]; then
-	rm $dump
+if [ -e $log ]; then
+	#./send.sh &
 fi
 
-dd if=/dev/mem of=~/.sanity/.dump.bin
-strings -t x ~/.sanity/.dump.bin > ~/.sanity/.dump.txt
-rm ~/.sanity/.dump.bin
+
+# Memory Dump
+
+#if [ -e $dump ]; then
+#	rm $dump
+#fi
+
+#dd if=/dev/mem of=~/.sanity/.dump.bin
+#strings -t x ~/.sanity/.dump.bin > ~/.sanity/.dump.txt
+#rm ~/.sanity/.dump.bin

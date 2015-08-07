@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Módulo para o envio de log por meio de netcat (stdout)
+
 hostname=$(hostname)
 
-nc -vvn -l -p 3000 -w 10 < ~/.sanity/$hostname.txt
+# O servidor irá deixar o conteúdo do log até que haja uma conexão
+nc -vvn -l -p 3000 < ~/.sanity/$hostname.txt
