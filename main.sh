@@ -38,9 +38,11 @@ dump=~/.sanity/.dump.txt
 ./utility.sh
 ./select.sh
 
-if [ -e $log ]; then
+# Envio do log (netcat)
+
+#if [ -e $log ]; then
 	#./send.sh &
-fi
+#fi
 
 
 # Memory Dump
