@@ -7,32 +7,12 @@
 
 # Módulo de interface visual para usuários comuns com base no TCL/TK
 
-global entrada
-global arquivo
-global problema
-
-global dev
-global util
-global office
-global lib
-global ide
-global net
-
-global fdev
-global futil
-global foffice
-global flib
-global fide
-global fnet
-
 set fdev "~/.sanity/.logs/.dev-error.txt"
 set futil "~/.sanity/.logs/.util-error.txt"
 set foffice "~/.sanity/.logs/.office-error.txt"
 set flib "~/.sanity/.logs/.lib-error.txt"
 set fide "~/.sanity/.logs/.ide-error.txt"
 set fnet "~/.sanity/.logs/.net-error.txt"
-
-#Remover comentários para código funcional
 
 set dev [file exists $fdev]
 set util [file exists $futil]
@@ -45,12 +25,6 @@ set log "~/.sanity/.logs/"
 set sanity "~/.sanity/"
 
 set problema " "
-#set dev 1
-#set util 0
-#set office 0
-#set lib 0
-#set ide 0
-#set net 0
 
 proc testar {dev util office lib ide net} {
 	if {$dev||$util||$office||$lib||$ide||$net} {
@@ -119,13 +93,11 @@ wm resizable . 0 0
 set x [expr {([winfo screenwidth .] - 570)/2}]
 set y [expr {([winfo screenheight .] - 370)/2}]
 wm title . "   Sanity   "
-#label .problema -textvariable problema -justify left
 text .problema
 .problema insert end $problema
 button .sair -text "Sair" -command {exit}
 button .refazer -text "Refazer Teste" -command {
 	exec wish refazer.tcl
-	set dev 0
 	set problema [testar $dev $util $office $lib $ide $net]
 	.problema replace 1.0 end $problema
 	}
