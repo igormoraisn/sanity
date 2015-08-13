@@ -28,14 +28,13 @@ fi
 date >> ~/.sanity/.date.txt
 hostname=$(hostname)
 log=~/.sanity/$hostname.txt
-dump=~/.sanity/.dump.txt
 
-./network.sh
-./devel.sh
-./lib.sh
-./office.sh
-./ide.sh
-./utility.sh
+run-parts --regex .sh modules/network
+run-parts --regex .sh modules/development
+run-parts --regex .sh modules/office
+run-parts --regex .sh modules/ide
+run-parts --regex .sh modules/utility
+run-parts --regex .sh modules/library
 ./select.sh
 
 # Envio do log (netcat)
@@ -45,12 +44,3 @@ dump=~/.sanity/.dump.txt
 #fi
 
 
-# Memory Dump
-
-#if [ -e $dump ]; then
-#	rm $dump
-#fi
-
-#dd if=/dev/mem of=~/.sanity/.dump.bin
-#strings -t x ~/.sanity/.dump.bin > ~/.sanity/.dump.txt
-#rm ~/.sanity/.dump.bin

@@ -57,3 +57,9 @@ Sex Ago  7 14:55:52 BRT 2015
 - Adding send.sh
 - Adding receive.sh
 - Changing the main module
+
+Qui Ago 13 11:40:48 BRT 2015
+- Adding the directories (modules)
+- The main.sh module was modified
+- A probably path (/opt/sanity) will be inserted
+- In this moment, the path is ~/Documentos/Prodap/sanity , please check this information before any execution

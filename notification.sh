@@ -19,6 +19,7 @@ x=$(grep "#" $name | wc -l)
 
 #erros=$((${partes[0]} - 1))
 
+
 if [ $x -eq 0 ]; then 	
 	zenity --notification --window-icon="info" --text="Nenhum erro foi encontrado!" --timeout=7
 	call
