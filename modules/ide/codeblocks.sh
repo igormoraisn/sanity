@@ -9,7 +9,7 @@ error=~/.sanity/.logs/.ide-error.txt
 echo "Code::Blocks" >> $log
 
 
-if [ $e $codeblocks ]; then
+if [ -e $codeblocks ]; then
 	codeblocks -ns &
 	sleep 3
 	code=$(pidof codeblocks)
