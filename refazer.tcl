@@ -31,10 +31,15 @@ set nome(7) "Finalizando testes..."
 
 set aguarde "Iniciando..."
 
-wm title . "   Refazendo testes...   "
+
+wm resizable . 0 0
+set x [expr {([winfo screenwidth .] - 210)/2}]
+set y [expr {([winfo screenheight .] - 35)/2}]
+wm title . "Testando"
 label .problema -textvariable aguarde
 pack .problema
 pack [ttk::progressbar .p1 -orient horizontal -length 200 -mode determinate -value 0]
+wm geometry . 210x35+$x+$y
 
 after 100 {
 
@@ -63,9 +68,9 @@ after 100 {
 
 	for {set i 1} {$i< $tamanho} {incr i} {
 		.p1 step 14
+		set aguarde $nome($i)
 		update
 		catch { exec run-parts --regex .sh $teste($i) }
-		set aguarde $nome($i)
 	}
 	exec $teste($i)
 	exit
