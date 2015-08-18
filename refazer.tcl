@@ -21,22 +21,23 @@ set teste(5) "modules/utility"
 set teste(6) "modules/library"
 set teste(7) "./select.sh"
 
-set nome(1) "Testando Rede"
-set nome(2) "Testando Ferramentas"
-set nome(3) "Testando Bibliotecas"
-set nome(4) "Testando Office"
-set nome(5) "Testando IDEs"
-set nome(6) "Testando Utilitários"
-set nome(7) "Finalizando testes"
-set a 0
+set nome(1) "Testando Rede..."
+set nome(2) "Testando Ferramentas..."
+set nome(3) "Testando Bibliotecas..."
+set nome(4) "Testando Office..."
+set nome(5) "Testando IDEs..."
+set nome(6) "Testando Utilitários..."
+set nome(7) "Finalizando testes..."
+
 set aguarde "Iniciando..."
+
 wm title . "   Refazendo testes...   "
 label .problema -textvariable aguarde
 pack .problema
 pack [ttk::progressbar .p1 -orient horizontal -length 200 -mode determinate -value 0]
 
 after 100 {
-	#catch {exec ./main.sh}
+
 	checa_logs .dev.txt
 	checa_logs .dev-error.txt
 	checa_logs .ide.txt
@@ -58,20 +59,14 @@ after 100 {
 
 	checa_logs $host.txt
 
-	set dump "~/.sanity/.dump.txt"
-
 	set tamanho [array size teste]
-	set valor 0
+
 	for {set i 1} {$i< $tamanho} {incr i} {
-		set valor [expr $valor+14]
 		.p1 step 14
-		#catch {exec $teste($i)}
-		puts $aguarde
-		puts $valor
+		update
 		catch { exec run-parts --regex .sh $teste($i) }
 		set aguarde $nome($i)
 	}
 	exec $teste($i)
-	set aguarde "Acabou"
 	exit
 }
