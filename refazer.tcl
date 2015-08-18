@@ -8,44 +8,24 @@
 # Módulo de interface visual para usuários comuns com base no TCL/TK
 
 
-proc main { } {
-	if {[file isdirectory "~/.sanity"]==0} {
-		exec mkdir ~/.sanity
+proc checa_logs {log} {
+	set end "~/.sanity/.logs/"
+	append end $log
+	if {[file exists $end]} {
+		catch {exec rm $end}
+		#exec rm $end
 	}
-	if {[file isdirectory "~/.sanity/.src"]==0} {
-		exec mkdir ~/.sanity/.src
-	}
-	if {[file isdirectory "~/.sanity/.logs"]==0} {
-		exec mkdir ~/.sanity/.logs
-	}
-	if {[file exists "~/.sanity/.date.txt"]==1} {
-		exec rm ~/.sanity/.date.txt
-	}
-	exec date >> ~/.sanity/.date.txt
-	
-	set host [info hostname]
-	set log "~/.sanity/"
-	append log $host
-	append log ".txt"
-	set dump "~/.sanity/.dump.txt"
-	
-	catch {exec ./network.sh}
-	catch {exec ./devel.sh}
-	catch {exec ./lib.sh}
-	catch {exec ./office.sh}
-	catch {exec ./ide.sh}
-	catch {exec ./utility.sh}
-	catch {exec ./select.sh}
+	return 0
 }
 
-set teste(1) "./network.sh"
-set teste(2) "./devel.sh"
-set teste(3) "./lib.sh"
-set teste(4) "./office.sh"
-set teste(5) "./ide.sh"
-set teste(6) "./utility.sh"
+set teste(1) "run-parts --regex .sh modules/network"
+set teste(2) "run-parts --regex .sh modules/development"
+set teste(3) "run-parts --regex .sh modules/office"
+set teste(4) "run-parts --regex .sh modules/ide"
+set teste(5) "run-parts --regex .sh modules/utility"
+set teste(6) "run-parts --regex .sh modules/library"
 set teste(7) "./select.sh"
-	
+
 set nome(1) "Testando Rede"
 set nome(2) "Testando Ferramentas"
 set nome(3) "Testando Bibliotecas"
@@ -60,29 +40,31 @@ label .problema -textvariable aguarde
 pack .problema
 pack [ttk::progressbar .p1 -orient horizontal -length 200 -mode determinate -value 0]
 
-after 100 { 
+after 100 {
 	#catch {exec ./main.sh}
-	#main
-	if {[file isdirectory "~/.sanity"]==0} {
-		exec mkdir ~/.sanity
-	}
-	if {[file isdirectory "~/.sanity/.src"]==0} {
-		exec mkdir ~/.sanity/.src
-	}
-	if {[file isdirectory "~/.sanity/.logs"]==0} {
-		exec mkdir ~/.sanity/.logs
-	}
-	if {[file exists "~/.sanity/.date.txt"]==1} {
-		catch {exec rm ~/.sanity/.date.txt}
-	}
+	checa_logs .dev.txt
+	checa_logs .dev-error.txt
+	checa_logs .ide.txt
+	checa_logs .ide-error.txt
+	checa_logs .lib.txt
+	checa_logs .lib-error.txt
+	checa_logs .net.txt
+	checa_logs .net-error.txt
+	checa_logs .office.txt
+	checa_logs .office-error.txt
+	checa_logs .util.txt
+	checa_logs .util-error.txt
+
 	exec date >> ~/.sanity/.date.txt
-	
 	set host [info hostname]
 	set log "~/.sanity/"
 	append log $host
 	append log ".txt"
+
+	checa_logs $host.txt
+
 	set dump "~/.sanity/.dump.txt"
-	
+
 	set tamanho [array size teste]
 	incr tamanho
 	set valor 0
@@ -98,4 +80,3 @@ after 100 {
 	set aguarde "Acabou"
 	exit
 }
-
