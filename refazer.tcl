@@ -7,23 +7,18 @@
 
 # Módulo de interface visual para usuários comuns com base no TCL/TK
 
-
 proc checa_logs {log} {
 	set end "~/.sanity/.logs/"
 	append end $log
-	if {[file exists $end]} {
-		catch {exec rm $end}
-		#exec rm $end
-	}
-	return 0
+	if {[file exists $end]} { file delete $end }
 }
 
-set teste(1) "run-parts --regex .sh modules/network"
-set teste(2) "run-parts --regex .sh modules/development"
-set teste(3) "run-parts --regex .sh modules/office"
-set teste(4) "run-parts --regex .sh modules/ide"
-set teste(5) "run-parts --regex .sh modules/utility"
-set teste(6) "run-parts --regex .sh modules/library"
+set teste(1) "modules/network"
+set teste(2) "modules/development"
+set teste(3) "modules/office"
+set teste(4) "modules/ide"
+set teste(5) "modules/utility"
+set teste(6) "modules/library"
 set teste(7) "./select.sh"
 
 set nome(1) "Testando Rede"
@@ -66,17 +61,17 @@ after 100 {
 	set dump "~/.sanity/.dump.txt"
 
 	set tamanho [array size teste]
-	incr tamanho
 	set valor 0
 	for {set i 1} {$i< $tamanho} {incr i} {
 		set valor [expr $valor+14]
-		puts $valor
 		.p1 step 14
-		catch {exec $teste($i)}
+		#catch {exec $teste($i)}
 		puts $aguarde
+		puts $valor
+		catch { exec run-parts --regex .sh $teste($i) }
 		set aguarde $nome($i)
-		puts $aguarde
 	}
+	exec $teste($i)
 	set aguarde "Acabou"
 	exit
 }
