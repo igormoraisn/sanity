@@ -20,6 +20,7 @@ if [ -e $cpp_path ]; then
 		echo "Sim" >> $log
 	else
 		echo "Não" >> $log
+		echo "# G++ - erro na compilação/execução de g++.cpp" >> $error	
 	fi
 	rm $source/g++.txt
 else

@@ -20,6 +20,7 @@ if [ -e $gcc_path ]; then
 		echo "Sim" >> $log
 	else
 		echo "Não" >> $log
+		echo "# GCC - erro na compilação/execução de gcc.c" >> $error	
 	fi
 	rm $source/gcc.txt
 else

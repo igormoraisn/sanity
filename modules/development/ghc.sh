@@ -26,6 +26,7 @@ if [ -e $ghc_path ]; then
 		echo "Sim" >> $log
 	else
 		echo "Não" >> $log
+		echo "# GHC - erro na compilação/execução de ghc.hs" >> $error	
 	fi
 	rm $source/haskell.txt
 else

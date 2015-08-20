@@ -24,6 +24,7 @@ if [ -e $jdk_path ]; then
 		echo "Sim" >> $log
 	else
 		echo "Não" >> $log
+		echo "# JDK - erro na compilação/execução de Java.java" >> $error	
 	fi
 	rm $source/java.txt
 else

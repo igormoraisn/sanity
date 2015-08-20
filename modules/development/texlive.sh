@@ -21,6 +21,7 @@ if [ -e $latex_dir ]; then
 		echo "Sim" >> $log
 	else
 		echo "Não" >> $log
+		echo "# LATEX - erro na compilação/execução de latex.tex" >> $error	
 	fi
 	rm $source/latex.aux
 else
