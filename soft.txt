@@ -1,0 +1,28 @@
+Gerenciador de Arquivos
+Thunar
+Leitor de Pdf
+Evince
+Visualizador de Imagens
+Gpicview
+Browser
+Mozilla Firefox
+Reprodutor de Vídeo
+Vlc
+Reprodutor de Áudio
+Audacious
+Gerenciador de Pacotes
+File-Roller
+Bloco de Notas
+Leafpad
+Editor de texto
+Gedit
+Gravador de CD/DVD
+Brasero
+Pacote Office
+LibreOffice
+Calculadora
+Galculator
+Cliente de Email
+Thunderbird
+Editor de Imagens
+Gimp

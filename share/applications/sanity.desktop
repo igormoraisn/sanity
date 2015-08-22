@@ -1,0 +1,13 @@
+[Desktop Entry]
+Name=Sanity
+Name[pt_BR]=Sanity
+GenericName=Sanity's test
+GenericName[pt_BR]=Testes de Software
+Comment=
+Comment[pt_BR]=Acompanhe o que está em funcionamento no seu sistema
+Exec=
+Icon=synapse
+Terminal=false
+Type=Application
+Categories=GNOME;System;Settings;
+StartupNotify=

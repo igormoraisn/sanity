@@ -1,0 +1,19 @@
+UFS - Universidade Federal de Sergipe
+CCET - Centro de Ciências Exatas e Tecnologia
+DCOMP - Departamento de Computação
+PRODAP - Programa de Apoio do Desenvolvimento da Aprendizagem Profissional
+Gerência de Equipamentos e Gestão de Sistemas
+
+Sanity - Sanidade de Softwares
+
+O presente software (Sanity) deve fazer testes nos softwares instalados nos computadores do DCOMP, de forma a facilitar manutenção dos computadores. Para isso, em todas as maquinas do departamento, módulos "cliente" serão instalados para execução dos testes e um módulo "servidor" será instalado no servidor do departamento, de modo a receber dados dos módulos clientes e relatar aos responsáveis pela manutenção os possíveis problemas.
+
+O funcionamento dos testes serão descritos abaixo.
+
+
+OpenOffice e LibreOffice
+
+Há um documento em /tmp/receita.doc. Este documento possui uma receita, com imagens e várias configurações de texto (tabulação, fonte, etc.).
+Para testar os processadores de texto, testaremos os módulos interpretadores (writer8 e pdf) dos processadores, convertendo esse documento (doc) em PDF e ODF.
+Após serem feitos os comandos de conversão, o teste verifica os arquivos gerados para avaliar a sanidade dos interpretadores dos processadores de texto.
+É criado um log com todos o sucesso ou falha nos testes. 

@@ -1,0 +1,65 @@
+Qui Jun 11 11:44:49 BRT 2015
+- Create lib.sh module
+- Improves the compilers file
+- Variables in the rede.sh file
+- Create the README file
+
+Tue Jun 16 10:13:25 BRT 2015
+- Add the samples DIR
+- Add AUTHOR in AUTHORS file
+- Create the libreoffice.sh file
+- Adding a new collaborator (Artur)
+
+Qui Jun 18 10:47:13 BRT 2015
+- Optimizing libreoffice.sh file
+- Renaming libreoffice.sh to office.sh
+- Adding error handling on all files
+- Creating the module main.sh
+
+Thu Jun 18 11:11:08 BRT 2015
+- Office bug fixies in error log
+- main.sh bug fixies em reference to office.sh
+
+Fri Jun 19 16:00:32 BRT 2015
+- Created OpenOffice.sh
+- Created OpenOffice test in OpenOffice.sh
+- Renamed office.sh to LibreOffice.sh
+- Updated references to tests in main.sh
+- Created OpenOffice log as .oolog.txt
+
+Mon Jul  6 11:23:34 BRT 2015
+- Add DOCS/
+- Add requirements at DOCS/
+- Add descriptions at DOCS/
+
+Qua Jul 15 11:29:05 BRT 2015
+- Create a Sanity GUI (zenity-based)
+- Introducing notifications after the beginning
+- New error tests
+- Adding a provisory logo
+
+Seg Jul 20 19:56:59 BRT 2015
+- Repainting the GUI
+- Remove the OpenOffice.sh ( switch to office.sh )
+- Changing the final log
+- New error logs
+
+Seg Jul 27 20:38:52 BRT 2015
+- Changing the final log
+- Adding new resources
+- Adding the .desktop file
+
+Qui Jul 30 14:41:34 BRT 2015
+- Adding Sanity in Prodap's Repo
+- The Alpha release is out
+
+Sex Ago  7 14:55:52 BRT 2015
+- Adding send.sh
+- Adding receive.sh
+- Changing the main module
+
+Qui Ago 13 11:40:48 BRT 2015
+- Adding the directories (modules)
+- The main.sh module was modified
+- A probably path (/opt/sanity) will be inserted
+- In this moment, the path is ~/Documentos/Prodap/sanity , please check this information before any execution

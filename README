@@ -1,0 +1,17 @@
+								Sanity
+
+Para executar a verificação de sanidade dos componentes do sistema, execute o arquivo "main.sh":
+
+./main.sh
+ou
+sh main.sh
+
+Após isso, execute o arquivo "notification.sh":
+
+./notification.sh
+ou
+sh notification.sh
+
+Este comando emitirá uma notificação sobre quantos erros foram encontrados no sistema.
+Se houver um clique na notificação nos próximos 7 segundos, uma interface aparecerá informando onde os erros acontecem.
+Caso o clique não ocorra, o programa se encerra.
