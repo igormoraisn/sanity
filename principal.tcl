@@ -35,8 +35,8 @@ proc testar {dev util office lib ide net} {
 		set fide "~/.sanity/.logs/.ide-error.txt"
 		set fnet "~/.sanity/.logs/.net-error.txt"
 		set problema " "
+		append problema "\n"
 
-		append problema "Foram encontrados os seguintes problemas:\n\n"
 		if {$net} {
 			append problema "-Sem conexão de rede \n\n"
 		}
@@ -90,18 +90,28 @@ proc testar {dev util office lib ide net} {
 set problema [testar $dev $util $office $lib $ide $net]
 
 wm resizable . 0 0
-set x [expr {([winfo screenwidth .] - 570)/2}]
-set y [expr {([winfo screenheight .] - 370)/2}]
-wm title . "   Sanity   "
-text .problema
+set x [expr {([winfo screenwidth .] - 520)/2}]
+set y [expr {([winfo screenheight .] - 310)/2}]
+wm title . "Sanity"
+
+label .titulo -text "\nForam encontrados os seguintes problemas:"
+frame .borda
+scrollbar .scroll -command ".problema yview" -orient v
+
+text .problema -borderwidth 2 -yscrollcommand ".scroll set" -height 17 -width 71
 .problema insert end $problema
+
 button .sair -text "Sair" -command {exit}
 button .refazer -text "Refazer Teste" -command {
 	exec wish refazer.tcl
 	set problema [testar $dev $util $office $lib $ide $net]
 	.problema replace 1.0 end $problema
-	}
-grid .problema -row 1 -column 1 -columnspan 2
-grid .sair -row 2 -column 2 -sticky ws
-grid .refazer -row 2 -column 1 -sticky es
-wm geometry . 570x370+$x+$y
+}
+
+pack .titulo -anchor nw
+grid .problema -in .borda -row 2 -column 1
+grid .scroll -in .borda -row 2 -column 2 -sticky ns
+pack .borda
+pack .sair -padx 1 -pady 1 -side right
+pack .refazer -padx 1 -pady 1 -side right
+wm geometry . 520x310+$x+$y
