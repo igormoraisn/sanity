@@ -1,0 +1,62 @@
+#!/bin/bash
+
+# Sanity Installer
+
+
+screen=0
+path=/opt/sanity
+desktop=/usr/share/applications/sanity.desktop
+
+while : ; do
+	case "$screen" in
+		0)
+			menu=$( dialog --stdout --title 'Centro de Controle Sanity' --menu 'Escolha uma Opção:' 0 0 0   1 'Instalar o Sanity' 2 'Remover o Sanity' 3  'Atualizar o Sanity' 4 'Opções Avançadas' 5 'Sair' )
+            		screen=$menu
+		;;
+		1) 
+			cd ..			
+			sleep 1 | dialog --progressbox 'Estamos realizando a instalação. Por favor, aguarde!' 0 0  && echo "Copiando arquivos..." && sleep 2 && cp -R sanity /opt && echo "Finalizando instalação" && cp $path/share/applications/sanity.desktop $desktop 
+			dialog --msgbox 'O Sanity foi instalado com sucesso!' 0 0		
+			screen=0
+        	;;
+		2) 
+			sleep 1 | dialog --progressbox 'Estamos removendo o Sanity do seu computador. Por favor, aguarde!' 0 0  && echo "Removendo arquivos..." && sleep 2 && rm -R $path && echo "Removendo arquivos de configuração" && rm $desktop			
+			dialog --msgbox 'O Sanity foi removido com sucesso!' 0 0
+			screen=0
+		;;
+        	3)
+            		diretorio=$( dialog --stdout --title 'Selecione o seu diretório git:' --dselect ~/ 0 0 )
+			if [ $? -eq 0]; then
+				echo $?
+				cd $diretorio
+				git pull
+				cd ..
+				rm $path			
+				cp -R sanity $path
+				dialog --msgbox 'O Sanity foi atualizado com sucesso!' 0 0
+			else
+				dialog --msgbox 'Operação cancelada!' 0 0
+			fi
+			screen=0
+           	;;
+		4) 
+		submenu=$( dialog --stdout --title 'Centro de Controle Sanity' --menu 'Escolha uma Opção:' 0 0 0   6 'Ver ChangeLog' 7 'Escolher mirror' )
+		screen=$submenu
+		;;
+         
+		5)
+			break
+		;;
+
+		6)
+			dialog --title 'ChangeLog' --textbox 'ChangeLog' 0 0
+			screen=0		
+		;;
+		7)
+			screen=0		
+		;;
+
+		*)
+           exit
+   esac
+done  
