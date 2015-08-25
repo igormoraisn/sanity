@@ -3,13 +3,14 @@
 # Módulo para a exibição da notificação inicial
 
 hostname=$(hostname)
-
+path=/opt/sanity
 name=~/.sanity/$hostname.txt
 
 call(){
 	if [ $? -eq 5 ]; then 
 		exit
 	else
+		cd $path	
 		./sanity.sh
 	fi
 }
