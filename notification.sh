@@ -30,5 +30,3 @@ else
 	zenity --notification --window-icon="info" --text="$x erros foram encontrados!" --timeout=7
 	call
 fi
-
-echo $?
