@@ -26,12 +26,12 @@ while : ; do
 		;;
         	3)
             		diretorio=$( dialog --stdout --title 'Selecione o seu diretório git:' --dselect ~/ 0 0 )
-			if [ $? -eq 0]; then
+			if [ $? -eq 0 ]; then
 				echo $?
 				cd $diretorio
-				git pull
+				git pull origin master
 				cd ..
-				rm $path			
+				rm -R $path			
 				cp -R sanity $path
 				dialog --msgbox 'O Sanity foi atualizado com sucesso!' 0 0
 			else
