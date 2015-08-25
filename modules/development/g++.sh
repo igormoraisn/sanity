@@ -6,7 +6,7 @@ cpp_path=/usr/bin/g++
 log=~/.sanity/.logs/.dev.txt
 error=~/.sanity/.logs/.dev-error.txt
 source=~/.sanity/.src
-path=~/opt/sanity
+path=/opt/sanity
 
 echo "G++" >> $log	
 

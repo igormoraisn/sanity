@@ -5,7 +5,7 @@
 jdk_path=/usr/lib/jvm
 log=~/.sanity/.logs/.dev.txt
 error=~/.sanity/.logs/.dev-error.txt
-path=~/opt/sanity
+path=/opt/sanity
 source=~/.sanity/.src
 # Testando a existência do diretório Java
 

@@ -6,7 +6,7 @@ gcc_path=/usr/bin/gcc
 log=~/.sanity/.logs/.dev.txt
 error=~/.sanity/.logs/.dev-error.txt
 source=~/.sanity/.src
-path=~/opt/sanity
+path=/opt/sanity
 
 echo "Gcc" >> $log	
 
