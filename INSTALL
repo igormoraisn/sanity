@@ -6,6 +6,9 @@
 screen=0
 path=/opt/sanity
 desktop=/usr/share/applications/sanity.desktop
+real=$(pwd)
+
+if [ -e /usr/bin/dialog ]; then
 
 while : ; do
 	case "$screen" in
@@ -14,34 +17,48 @@ while : ; do
             		screen=$menu
 		;;
 		1) 
-			cd ..			
-			sleep 1 | dialog --progressbox 'Estamos realizando a instalação. Por favor, aguarde!' 0 0  && echo "Copiando arquivos..." && sleep 2 && cp -R sanity /opt && echo "Finalizando instalação" && cp $path/share/applications/sanity.desktop $desktop 
-			dialog --msgbox 'O Sanity foi instalado com sucesso!' 0 0		
-			screen=0
-        	;;
+			if [ -e /usr/bin/zenity ]; then			
+				cd ..			
+				sleep 1 | dialog --progressbox 'Estamos realizando a instalação. Por favor, aguarde!' 0 0  && echo "Copiando arquivos..." && sleep 2 && cp -R sanity /opt && echo "Finalizando instalação" && cp $path/share/applications/sanity.desktop $desktop 
+				dialog --msgbox 'O Sanity foi instalado com sucesso!' 0 0		
+				screen=0
+			else
+				screen=8
+			fi 
+			cd $real       	
+		;;
 		2) 
-			sleep 1 | dialog --progressbox 'Estamos removendo o Sanity do seu computador. Por favor, aguarde!' 0 0  && echo "Removendo arquivos..." && sleep 2 && rm -R $path && echo "Removendo arquivos de configuração" && rm $desktop			
-			dialog --msgbox 'O Sanity foi removido com sucesso!' 0 0
+			if [ -e $path ]; then			
+				sleep 1 | dialog --progressbox 'Estamos removendo o Sanity do seu computador. Por favor, aguarde!' 0 0  && echo "Removendo arquivos..." && sleep 2 && rm -R $path && echo "Removendo arquivos de configuração" && rm $desktop			
+				dialog --msgbox 'O Sanity foi removido com sucesso!' 0 0
+			else
+				dialog --msgbox 'O Sanity não está instalado!' 0 0
+			fi			
+			cd $real			
 			screen=0
 		;;
         	3)
             		diretorio=$( dialog --stdout --title 'Selecione o seu diretório git:' --dselect ~/ 0 0 )
 			if [ $? -eq 0 ]; then
-				echo $?
-				cd $diretorio
-				git pull origin master
-				cd ..
-				rm -R $path			
-				cp -R sanity $path
-				dialog --msgbox 'O Sanity foi atualizado com sucesso!' 0 0
+				if [ -e $diretorio/.git ]; then
+					cd $diretorio
+					git pull origin master
+					cd ..
+					rm -R $path			
+					cp -R sanity $path
+					dialog --msgbox 'O Sanity foi atualizado com sucesso!' 0 0
+				else
+					dialog --msgbox 'Não foi encontrado nenhum diretório git.' 0 0
+				fi
 			else
 				dialog --msgbox 'Operação cancelada!' 0 0
 			fi
+			cd $real
 			screen=0
            	;;
 		4) 
-		submenu=$( dialog --stdout --title 'Centro de Controle Sanity' --menu 'Escolha uma Opção:' 0 0 0   6 'Ver ChangeLog' 7 'Escolher mirror' )
-		screen=$submenu
+			submenu=$( dialog --stdout --title 'Centro de Controle Sanity' --menu 'Escolha uma Opção:' 0 0 0   6 'Ver ChangeLog' 7 'Escolher mirror' )
+			screen=$submenu
 		;;
          
 		5)
@@ -55,8 +72,41 @@ while : ; do
 		7)
 			screen=0		
 		;;
-
+		8)
+			pack=$( dialog --stdout --title 'Centro de Controle Sanity' --menu 'Selecione o seu gerenciador de pacotes:' 0 0 0   9 'apt-get' 10 'pacman' )
+			screen=$pack		
+		;;
+		9)
+			apt-get install zenity | dialog --progressbox 'Estamos instalando dependências necessárias. Por favor, aguarde!' 0 0
+			dialog --infobox 'Estamos iniciando a instalação do Sanity!' 0 0 && sleep 2			
+			screen=1
+		;;		
+		10)
+			pacman -S zenity | dialog --progressbox 'Estamos instalando dependências necessárias. Por favor, aguarde!' 0 0
+			dialog --infobox 'Estamos iniciando a instalação do Sanity!' 0 0 && sleep 2			
+			screen=1
+		;;		
+		
 		*)
            exit
    esac
 done  
+
+else
+	echo "O pacote dialog não está instalado. Deseja instalá-lo agora ? (Y/N)"
+	read resp	
+	if [ "$resp" == "Y" ] || [ "$resp" == "y" ]; then
+		if [ -e /usr/bin/apt-get ]; then
+			apt-get install dialog
+			./INSTALL		
+		elif [ -e /usr/bin/pacman ]; then
+			pacman -S dialog
+			./INSTALL		
+		else
+			echo "Seu gerenciador de pacotes não foi reconhecido! Por favor, instale manualmente o pacote dialog para concluir a instalação."
+		fi
+	else
+		echo "Por favor, instale manualmente o pacote dialog para concluir a instalação do Sanity."
+	fi
+fi
+	
