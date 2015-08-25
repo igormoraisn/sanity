@@ -63,3 +63,7 @@ Qui Ago 13 11:40:48 BRT 2015
 - The main.sh module was modified
 - A probably path (/opt/sanity) will be inserted
 - In this moment, the path is ~/Documentos/Prodap/sanity , please check this information before any execution
+
+Seg Ago 24 21:45:13 BRT 2015
+- Creating an installer for Sanity's window
+
