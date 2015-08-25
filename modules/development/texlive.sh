@@ -6,7 +6,7 @@ latex_dir=/usr/bin/latex
 log=~/.sanity/.logs/.dev.txt
 error=~/.sanity/.logs/.dev-error.txt
 source=~/.sanity/.src
-path=~/Documentos/Prodap/sanity
+path=~/opt/sanity
 
 echo "Latex" >> $log
 

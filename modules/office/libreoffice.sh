@@ -4,7 +4,7 @@
 
 log=~/.sanity/.logs/.office.txt
 receita=tmp/receita.doc
-path=~/Documentos/Prodap/sanity/
+path=~/opt/sanity/
 source=~/.sanity/.src/
 error=~/.sanity/.logs/.office-error.txt
 
