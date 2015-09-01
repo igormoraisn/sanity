@@ -100,18 +100,25 @@ scrollbar .scroll -command ".problema yview" -orient v
 
 text .problema -borderwidth 2 -yscrollcommand ".scroll set" -height 17 -width 71
 .problema insert end $problema
+.problema configure -state disable
 
-button .sair -text "Sair" -command {exit}
+#image create photo icone -format png -file ver.png
+#toplevel .icon;pack [label .icon.l -image icone]
+#wm iconwindow . .icon
+
+button .ajuda -text "Ajuda" -command { exec wish ajuda.tcl }
 button .refazer -text "Refazer Teste" -command {
 	exec wish refazer.tcl
 	set problema [testar $dev $util $office $lib $ide $net]
+	.problema configure -state normal
 	.problema replace 1.0 end $problema
+	.problema configure -state disable
 }
 
 pack .titulo -anchor nw
 grid .problema -in .borda -row 2 -column 1
 grid .scroll -in .borda -row 2 -column 2 -sticky ns
 pack .borda
-pack .sair -padx 1 -pady 1 -side right
+pack .ajuda -padx 1 -pady 1 -side right
 pack .refazer -padx 1 -pady 1 -side right
 wm geometry . 520x310+$x+$y
