@@ -19,7 +19,7 @@ label .titulo -text "\nMódulo de sanidade bla bla bla"
 frame .borda
 scrollbar .scroll -command ".problema yview" -orient v
 
-text .problema -borderwidth 2 -yscrollcommand ".scroll set" -height 19 -width 71
+text .problema -borderwidth 0 -yscrollcommand ".scroll set" -height 19 -width 71 -background gray85
 .problema insert end $problema
 .problema configure -state disable
 

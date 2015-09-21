@@ -98,13 +98,9 @@ label .titulo -text "\nForam encontrados os seguintes problemas:"
 frame .borda
 scrollbar .scroll -command ".problema yview" -orient v
 
-text .problema -borderwidth 2 -yscrollcommand ".scroll set" -height 17 -width 71
+text .problema -borderwidth 0 -yscrollcommand ".scroll set" -height 17 -width 71 -background gray85
 .problema insert end $problema
 .problema configure -state disable
-
-#image create photo icone -format png -file ver.png
-#toplevel .icon;pack [label .icon.l -image icone]
-#wm iconwindow . .icon
 
 button .ajuda -text "Ajuda" -command { exec wish ajuda.tcl }
 button .refazer -text "Refazer Teste" -command {
