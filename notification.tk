@@ -4,7 +4,7 @@
 
 wm title . "Sanity" 
 
-set log "/home/igor/.sanity/IgorGentoo.txt"
+set log "~/.sanity/IgorGentoo.txt"
 set icon "share/icons/info.gif"
 
 set larguratela [winfo screenwidth .]
