@@ -1,0 +1,49 @@
+#!/usr/bin/wish
+
+# Módulo de notificação para a interface TCL/TK
+
+wm title . "Sanity" 
+
+set larguratela [winfo screenwidth .]
+set alturatela [winfo screenheight .]
+
+set helpfont [font create -family helvetica -size 14 -weight bold]
+
+set c_height 2.0
+set d_height 2.0
+
+set x [expr ($larguratela/2 - -750/2)]
+set y [expr ($alturatela/2 - 770/2)]
+wm geometry . 300x78+$x+$y
+
+wm minsize . 300 78
+wm maxsize . 300 78
+
+frame .c -background white
+place .c -relx 0 -rely 0 -height ${c_height}c -relwidth 1.0 -width 0.1c
+
+image create photo .cow -format GIF -file info.gif
+label .c.lab -image .cow
+pack .c.lab -side left
+
+set i 0
+set arquivo [ open "/home/igor/.sanity/IgorGentoo.txt" r ]
+while { ! [ eof $arquivo ] } {
+	set linha [ gets $arquivo ]
+	set char [ string index $linha 0 ]	
+	if { [ string compare $char "#"] == 0 } {
+    		incr i
+	}
+}
+label .c.label -text "\n$i erros foram encontrados!" -font $helpfont -background white
+pack .c.label
+
+button .c.botao -text "Ver" -bg white -command iniciar
+pack .c.botao -ipadx 15 -ipady 20
+
+
+proc iniciar {} {
+	destroy .c.botao .c.label .c.lab .c .
+	exec wish principal.tcl
+	exit
+}
