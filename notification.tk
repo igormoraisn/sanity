@@ -4,6 +4,9 @@
 
 wm title . "Sanity" 
 
+set log "/home/igor/.sanity/IgorGentoo.txt"
+set icon "share/icons/info.gif"
+
 set larguratela [winfo screenwidth .]
 set alturatela [winfo screenheight .]
 
@@ -22,12 +25,12 @@ wm maxsize . 300 78
 frame .c -background white
 place .c -relx 0 -rely 0 -height ${c_height}c -relwidth 1.0 -width 0.1c
 
-image create photo .cow -format GIF -file info.gif
+image create photo .cow -format GIF -file $icon
 label .c.lab -image .cow
 pack .c.lab -side left
 
 set i 0
-set arquivo [ open "/home/igor/.sanity/IgorGentoo.txt" r ]
+set arquivo [ open $log r ]
 while { ! [ eof $arquivo ] } {
 	set linha [ gets $arquivo ]
 	set char [ string index $linha 0 ]	
