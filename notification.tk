@@ -4,7 +4,9 @@
 
 wm title . "Sanity" 
 
-set log "~/.sanity/IgorGentoo.txt"
+set hostname [exec hostname]
+
+set log "~/.sanity/$hostname.txt"
 set icon "share/icons/info.gif"
 
 set larguratela [winfo screenwidth .]
