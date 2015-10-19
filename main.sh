@@ -66,4 +66,4 @@ run-parts --regex .sh modules/library
 	#./send.sh &
 #fi
 
-
+./notification.sh

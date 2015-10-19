@@ -11,7 +11,7 @@ call(){
 		exit
 	else
 		cd $path	
-		./sanity.sh
+		./principal.tcl
 	fi
 }
 
@@ -21,9 +21,8 @@ x=$(grep "#" $name | wc -l)
 #erros=$((${partes[0]} - 1))
 
 
-if [ $x -eq 0 ]; then 	
-	zenity --notification --window-icon="info" --text="Nenhum erro foi encontrado!" --timeout=7
-	call
+if [ $x -eq 0 ] || [ ! -e $name ]; then 	
+	exit
 elif [ $x -eq 1 ]; then
 	zenity --notification --window-icon="info" --text="$x erro foi encontrado!" --timeout=7
 	call
