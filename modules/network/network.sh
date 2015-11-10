@@ -8,7 +8,7 @@ error=~/.sanity/.logs/.net-error.txt
 
 echo "Rede" >> $log
 
-ping -c3 $test_dir	
+ping -c1 $test_dir	
 ret=$?	
 if [ $ret -eq 0 ]; then
 	echo "Sim" >> $log
