@@ -1,0 +1,32 @@
+#!/usr/bin/wish
+
+# Janela de envio de relatos
+
+wm resizable . 0 0
+set x [expr {([winfo screenwidth .] - 520)/2}]
+set y [expr {([winfo screenheight .] - 310)/2}]
+wm title . "Sanity"
+frame .borda 
+scrollbar .scroll -command ".problema yview" -orient v
+text .texto -borderwidth 0 -yscrollcommand ".scroll set" -height 19 -width 71 -background white
+button .enviar -text "Enviar" -command { enviar_msg } -background white
+grid .texto -in .borda -row 2 -column 1
+pack .borda
+pack .enviar -padx 0 -pady 0 -side bottom
+wm geometry . 520x305+$x+$y
+
+proc enviar_msg { } {	
+	set data [.texto get 1.0 {end -1c}]
+	if { $data eq "" } {
+		tk_messageBox -message "Por favor, insira o texto!" -type ok
+	} else {
+		set net "~/.sanity/.logs/.net-error.txt"
+		set test [file exists $net]
+		if { $test } {
+			tk_messageBox -message "Você está desconectado!" -type ok	
+		} else {
+			tk_messageBox -message "Mensagem enviada com sucesso!" -type ok
+			exit		
+		}
+	}
+}
