@@ -2,7 +2,6 @@
 
 # LibreOffice
 
-log=~/.sanity/.logs/.office.txt
 receita=tmp/receita.doc
 path=/opt/sanity/
 source=~/.sanity/.src/
@@ -15,18 +14,13 @@ converte() {
 
 
 testa_conversao() {
-	if [ -e $1 ] && [ -e $2 ]; then
-		echo "Sim" >> $log
-	else
-		echo "Não" >> $log
-		echo "#$var LIBREOFFICE - erro ao realizar conversão doc-odt/pdf" >> $error
-		var=$((var+1))	
+	if [ ! -e $1 ] && [ ! -e $2 ]; then
+		echo "# LIBREOFFICE - erro ao realizar conversão doc-odt/pdf" >> $error
 		exit
-fi
+	fi
 }
 
 
-echo "LibreOffice" >> $log
 
 if [ -e "/usr/bin/libreoffice" ] ; then
 	if [ -e "/usr/bin/loffice" ]; then	
@@ -39,6 +33,5 @@ if [ -e "/usr/bin/libreoffice" ] ; then
 	fi
 
 else 	
-	echo "# LIBREOFFICE - O pacote libreoffice não está instalado" >> $error	
-	echo "Não" >> $log
+	echo "# LIBREOFFICE - O pacote libreoffice não está instalado" >> $error
 fi
