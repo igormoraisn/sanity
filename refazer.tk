@@ -41,19 +41,13 @@ pack .problema
 pack [ttk::progressbar .p1 -orient horizontal -length 200 -mode determinate -value 0]
 wm geometry . 210x35+$x+$y
 
-after 100 {
+after 50 {
 
-	checa_logs .dev.txt
 	checa_logs .dev-error.txt
-	checa_logs .ide.txt
 	checa_logs .ide-error.txt
-	checa_logs .lib.txt
 	checa_logs .lib-error.txt
-	checa_logs .net.txt
 	checa_logs .net-error.txt
-	checa_logs .office.txt
 	checa_logs .office-error.txt
-	checa_logs .util.txt
 	checa_logs .util-error.txt
 
 	exec date >> ~/.sanity/.date.txt
