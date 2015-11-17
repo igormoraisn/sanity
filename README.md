@@ -7,5 +7,7 @@ Esta avaliação tende a ser sobre o Sistema Operacional GNU/Linux, na distribui
 Criado por:
 
 Igor Nascimento dos Santos
+
 Thales Francisco Sousa Sampaio Alves dos Santos
+
 Artur Santos Nascimento
