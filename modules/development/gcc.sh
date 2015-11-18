@@ -15,9 +15,9 @@ if [ -e $gcc_path ]; then
 	cd $source
 	./gcc-test
 	if  ! diff $source/gcc.txt $tmp/gcc_sample.txt ; then
-		echo "# GCC - erro na compilação ou execução de programas" >> $error	
+		echo "# Gcc - erro na compilação ou execução de programas" >> $error	
 	fi
 	rm $source/gcc.txt
 else
-	echo "# GCC - O compilador GCC não está instalado." >> $error
+	echo "# Gcc - O compilador GCC não está instalado." >> $error
 fi

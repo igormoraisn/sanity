@@ -21,9 +21,9 @@ if [ -e $ghc_path ]; then
 	./ghc
 	rm $code_ghc_name		
 	if  ! diff $source/haskell.txt $tmp/ghc_sample.txt ; then
-		echo "# GHC - erro na compilação/execução de ghc.hs" >> $error	
+		echo "# Ghc - erro na compilação/execução de ghc.hs" >> $error	
 	fi
 	rm $source/haskell.txt
 else
-	echo "# GHC - O compilador GHC não está instalado." >> $error
+	echo "# Ghc - O compilador GHC não está instalado." >> $error
 fi

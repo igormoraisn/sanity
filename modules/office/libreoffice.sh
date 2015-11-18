@@ -15,7 +15,7 @@ converte() {
 
 testa_conversao() {
 	if [ ! -e $1 ] && [ ! -e $2 ]; then
-		echo "# LIBREOFFICE - erro ao realizar conversão doc-odt/pdf" >> $error
+		echo "# Libreoffice - erro ao realizar conversão doc-odt/pdf" >> $error
 		exit
 	fi
 }
@@ -29,9 +29,9 @@ if [ -e "/usr/bin/libreoffice" ] ; then
 		rm $source/receita.pdf
 		rm $source/receita.odt
 	else
-		echo "# LIBREOFFICE - loffice: comando não encontrado" >> $error
+		echo "# Libreoffice - loffice: comando não encontrado" >> $error
 	fi
 
 else 	
-	echo "# LIBREOFFICE - O pacote libreoffice não está instalado" >> $error
+	echo "# Libreoffice - O pacote libreoffice não está instalado" >> $error
 fi

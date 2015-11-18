@@ -6,5 +6,5 @@ error=~/.sanity/.logs/.lib-error.txt
 
 
 if [ ! -e $flash ]; then
-	echo "# libflashplayer : A biblioteca libflashplayer.so não foi encontrada" >> $error
+	echo "# Flash : A biblioteca libflashplayer.so não foi encontrada" >> $error
 fi

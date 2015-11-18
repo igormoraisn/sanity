@@ -12,8 +12,8 @@ if [ -e $pdf ]; then
 	num=$(pidof evince)
 	kill $num
 	if [ ! $? -eq 0 ]; then	
-		echo "# EVINCE - falha de execução" >> $error
+		echo "# Evince - falha de execução" >> $error
 	fi
 else
-	echo "# EVINCE - O leitor de pdf Evince não está instalado." >> $error
+	echo "# Evince - O leitor de pdf Evince não está instalado." >> $error
 fi

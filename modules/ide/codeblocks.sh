@@ -12,8 +12,8 @@ if [ -e $codeblocks ]; then
 	code=$(pidof codeblocks)
 	kill $code
 	if [ ! $? -eq 0 ]; then
-		echo "# CODEBLOCKS - erro na inicialização" >> $error
+		echo "# Codeblocks - erro na inicialização" >> $error
 	fi
 else
-	echo "# CODEBLOCKS - O Codeblocks não está instalado." >> $error
+	echo "# Codeblocks - O Codeblocks não está instalado." >> $error
 fi

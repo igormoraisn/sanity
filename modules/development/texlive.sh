@@ -16,9 +16,9 @@ if [ -e $latex_dir ]; then
 	ps2pdf latex.ps
 	cmp $source/latex.aux $tmp/latex_sample.aux
 	if [ ! $? -eq 0 ]; then
-		echo "# LATEX - erro na compilação/execução de latex.tex" >> $error	
+		echo "# Texlive - erro na compilação/execução de latex.tex" >> $error	
 	fi
 	rm $source/latex.aux
 else
-	echo "# LATEX - A distribuição TexLive não está instalada." >> $error
+	echo "# Texlive - A distribuição TexLive não está instalada." >> $error
 fi
