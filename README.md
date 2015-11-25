@@ -4,8 +4,3 @@ Sanity é uma iniciativa dos alunos do Departamento de Computação da Universid
 
 Esta avaliação tende a ser sobre o Sistema Operacional GNU/Linux, na distribuição Arch Linux(www.archlinux.org) e será realizada nos laboratórios do Departamento de Computação(DCOMP), fornecendo informações para um servidor central sobre a sanidade dos computadores.
 
-Criado por:
-
-Igor Nascimento dos Santos
-Thales Francisco Sousa Sampaio Alves dos Santos
-Artur Santos Nascimento
