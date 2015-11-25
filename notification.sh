@@ -11,7 +11,7 @@ call(){
 		exit
 	else
 		cd $path	
-		./principal.tcl
+		./sanity &
 	fi
 }
 
