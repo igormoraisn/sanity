@@ -12,13 +12,11 @@ call(){
 	else
 		cd $path	
 		./sanity &
+		exit
 	fi
 }
 
 x=$(grep "#" $name | wc -l)
-#partes=($x)
-
-#erros=$((${partes[0]} - 1))
 
 
 if [ $x -eq 0 ] || [ ! -e $name ]; then 	
