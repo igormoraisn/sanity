@@ -9,7 +9,6 @@
 
 #include "about.h"
 #include "progressbar.c"
-//#include "statusbar.c"
 #include "createmodel.c"
 
 GtkWidget *statusbar;
@@ -42,6 +41,10 @@ void on_item_selected (GtkIconView *view, gpointer data)
 	g_list_free (selected);
 }
 
+static void wiki_browsed(){
+	system("xdg-open http://admin.dcomp.ufs.br/wiki/index.php/Página_principal");
+}
+
 
 static void on_window_destroy(GtkWidget *widget,
 								gpointer data)
@@ -62,9 +65,9 @@ int main (int argc, char *argv[]) {
 	GtkWidget *file_menu, *options_menu, *help_menu;
 	GtkWidget *sobre, *relatar_erro, *refazer_teste, *sair,
 				*ajuda_item, *listar_software, *wiki;
-	GtkWidget *icon_view;
 	GtkWidget *scrolled_window;
 	GtkWidget *label;
+	GdkPixbuf *icon;
 	gchar *info;
 	GtkTreePath *path;
 	gtk_init (&argc, &argv);
@@ -76,6 +79,9 @@ int main (int argc, char *argv[]) {
 						(GtkSignalFunc) on_window_destroy, NULL);
 	gtk_widget_set_size_request(GTK_WIDGET (window), 600, 400);
 	gtk_container_set_border_width (GTK_CONTAINER (window), 10);
+	gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER_ALWAYS);
+	icon = gdk_pixbuf_new_from_file ("sanity32.png", NULL);
+	gtk_window_set_icon(GTK_WINDOW(window), icon);
 	/* Init the menu-widget, and remember -- never
 	* gtk_show_widget() the menu widget!! */
 	vbox = gtk_vbox_new(FALSE, 0);
@@ -151,6 +157,9 @@ int main (int argc, char *argv[]) {
 						(GtkWindow*) window);
 	g_signal_connect(G_OBJECT (refazer_teste), "activate",
 						G_CALLBACK (refazer),
+						(GtkWindow*) window);
+	g_signal_connect(G_OBJECT (wiki), "activate",
+						G_CALLBACK (wiki_browsed),
 						(GtkWindow*) window);
 	gtk_widget_show(menu_bar);
 	gtk_box_pack_start(GTK_BOX (vbox), menu_bar, FALSE, FALSE, 2);
