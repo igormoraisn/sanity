@@ -17,11 +17,11 @@ static void help_clicked(GtkWindow *window) {
 	"You should have received a copy of the GNU General Public License "
 	"along with this program.  If not, see http://www.gnu.org/licenses/ .";
 	const gchar *comments = 
-						"Uma aplicação que testa os softwares que você mais utiliza. \
-						Um projeto totalmente open-source.";
+						"Uma aplicação que testa os softwares que você mais utiliza. " \
+						"Um projeto totalmente open-source.";
     GdkPixbuf *logo = NULL;
     if(logo == NULL)
-		logo = gdk_pixbuf_new_from_file("Firefox.png", NULL);
+		logo = gdk_pixbuf_new_from_file("sanity96.png", NULL);
     gtk_show_about_dialog(window,
                             "authors", authors,"license", license,
                             "logo", logo,

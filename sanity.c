@@ -9,15 +9,12 @@
 
 #include "about.h"
 #include "progressbar.c"
+//#include "statusbar.c"
+#include "createmodel.c"
 
-enum
-{
-  COL_DISPLAY_NAME,
-  COL_PIXBUF,
-  NUM_COLS
-};
+GtkWidget *statusbar;
 
-void print_selected_elements (GtkIconView *view) 
+void on_item_selected (GtkIconView *view, gpointer data) 
 {
 	GtkTreeModel *model;
 	GList *selected, *current;
@@ -30,63 +27,21 @@ void print_selected_elements (GtkIconView *view)
 		GtkTreePath *path;
 		GtkTreeIter iter;
 		char *text;
+		char *string;
 		path = (GtkTreePath *)current->data;
 		gtk_tree_model_get_iter (model, &iter, path);
 		gtk_tree_path_free (path);
 		gtk_tree_model_get (model, &iter, COL_DISPLAY_NAME, &text, -1);
 		printf("Selected item: %s\n", text);
+		string = search_in_list(text);
+		guint id = gtk_statusbar_get_context_id(GTK_STATUSBAR(statusbar), "info");
+		gtk_statusbar_push(GTK_STATUSBAR(statusbar), id, string);
 		g_free (text);
 	}
 	while (current = g_list_next (current));
 	g_list_free (selected);
 }
 
-/* Create the ListStore and fill it with required data */
-GtkTreeModel *create_and_fill_model (void) 
-{
-	GtkListStore *list_store;
-	GdkPixbuf *p1, *p2;
-	GtkTreeIter iter;
-	GError *err = NULL;
-	const unsigned int TAM_BUFFER = 70;
-	char hostname[40];
-	system("./access.sh");
-	FILE *host = fopen("/tmp/hostname", "r");
-	fgets(hostname, 40, host);
-	// Abrindo log
-	FILE *arquivo = fopen(hostname, "r");
-	char buffer[TAM_BUFFER];
-	list_store = gtk_list_store_new (NUM_COLS, G_TYPE_STRING, GDK_TYPE_PIXBUF);
-	if(arquivo != NULL){
-		while(fgets(buffer, TAM_BUFFER, arquivo)){
-			printf("%s\n", buffer);
-			if ( buffer[0] == '#'){
-				unsigned int i=2;
-				char *program, *temp;
-				program = (char *)calloc(12, sizeof(char));
-				temp = (char *)calloc(40, sizeof(char));
-				strcpy(temp, "share/icons/");
-				while (buffer[i] != ' ') {
-					program[i-2] = buffer[i];
-					i++;
-				}
-				strcat(temp, program);
-				strcat(temp, ".png");
-				p1 = gdk_pixbuf_new_from_file (temp, &err);
-				gtk_list_store_append (list_store, &iter);
-				gtk_list_store_set (list_store, &iter, COL_DISPLAY_NAME, program,
-									COL_PIXBUF, p1, -1);
-				free(program);
-				free(temp);
-			}
-		}	  
-		fclose(arquivo);
-		remove("/tmp/hostname");
-	}
-	else 
-		printf("Nao foi possivel abrir o arquivo.");
-	return GTK_TREE_MODEL (list_store);
-}
 
 static void on_window_destroy(GtkWidget *widget,
 								gpointer data)
@@ -109,7 +64,7 @@ int main (int argc, char *argv[]) {
 				*ajuda_item, *listar_software, *wiki;
 	GtkWidget *icon_view;
 	GtkWidget *scrolled_window;
-	GtkWidget *label, *statusbar;
+	GtkWidget *label;
 	gchar *info;
 	GtkTreePath *path;
 	gtk_init (&argc, &argv);
@@ -118,7 +73,7 @@ int main (int argc, char *argv[]) {
 	window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 	gtk_window_set_title(GTK_WINDOW (window), "Sanity");
 	gtk_signal_connect(GTK_OBJECT (window), "destroy",
-						(GtkSignalFunc) gtk_exit, NULL);
+						(GtkSignalFunc) on_window_destroy, NULL);
 	gtk_widget_set_size_request(GTK_WIDGET (window), 600, 400);
 	gtk_container_set_border_width (GTK_CONTAINER (window), 10);
 	/* Init the menu-widget, and remember -- never
@@ -216,21 +171,22 @@ int main (int argc, char *argv[]) {
 	gtk_icon_view_set_text_column (GTK_ICON_VIEW (icon_view),
                                  COL_DISPLAY_NAME);
 	gtk_icon_view_set_pixbuf_column (GTK_ICON_VIEW (icon_view), COL_PIXBUF);
-	gtk_icon_view_set_selection_mode (GTK_ICON_VIEW (icon_view),
-                                    GTK_SELECTION_MULTIPLE);
-
+	//gtk_icon_view_set_selection_mode (GTK_ICON_VIEW (icon_view),
+                                    //GTK_SELECTION_MULTIPLE);
+	g_signal_connect (G_OBJECT (icon_view), "item-activated",
+ 		      G_CALLBACK (on_item_selected), NULL);
 	gtk_widget_show_all (scrolled_window);
 	
 	statusbar = gtk_statusbar_new();
+	// Sinal para ativação de icone
 	guint id = gtk_statusbar_get_context_id(GTK_STATUSBAR(statusbar), "info");
-	 info = "";
+    info = "Para ver o erro correspondente, clique no icone do programa.";
     gtk_statusbar_push(GTK_STATUSBAR(statusbar), id, info);
     gtk_box_pack_start(GTK_BOX (vbox), statusbar, FALSE, FALSE, 2);
 	/* always display the window as the last step so it all splashes 
 	 * on the screen at once. */
 	gtk_widget_show_all(window);
 	gtk_main ();
-	print_selected_elements(GTK_ICON_VIEW(icon_view));
 	return 0;
 }
 
