@@ -42,7 +42,7 @@ gint CanWindowClose (GtkWidget *widget)
  * len - length of the file
  * (pos / len) = % file has been loaded.
  */
-void UpdateProgress (long pos, long len)
+void UpdateProgress (unsigned int pos, unsigned int len)
 {
     gfloat pvalue;
     int pct;

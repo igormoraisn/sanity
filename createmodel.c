@@ -13,7 +13,7 @@ enum
 GtkTreeModel *create_and_fill_model (void) 
 {
 	GtkListStore *list_store;
-	GdkPixbuf *p1, *p2;
+	GdkPixbuf *p1;
 	GtkTreeIter iter;
 	GError *err = NULL;
 	const unsigned int TAM_BUFFER = 70;
@@ -37,6 +37,7 @@ GtkTreeModel *create_and_fill_model (void)
 					}
 					else {
 						add_to_list(j, buffer);
+					}
 						unsigned int i=2;
 						char *program, *temp;
 						program = (char *)calloc(12, sizeof(char));
@@ -56,8 +57,7 @@ GtkTreeModel *create_and_fill_model (void)
 						free(temp);
 						j++;
 					}
-				}
-			}	  
+				}  
 			fclose(arquivo);
 			remove("/tmp/hostname");
 		}

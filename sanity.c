@@ -54,19 +54,11 @@ static void on_window_destroy(GtkWidget *widget,
 }
 
 int main (int argc, char *argv[]) {
-	GtkWidget *window;
-	GtkWidget *menu;
-	GtkWidget *menu_bar;
-	GtkWidget *arquivo;
-	GtkWidget *ajuda;
-	GtkWidget *options;
-	GtkWidget *menu_items;
-	GtkWidget *vbox;
-	GtkWidget *file_menu, *options_menu, *help_menu;
-	GtkWidget *sobre, *relatar_erro, *refazer_teste, *sair,
-				*ajuda_item, *listar_software, *wiki;
-	GtkWidget *scrolled_window;
-	GtkWidget *label;
+	GtkWidget *window, *menu, *menu_bar, *arquivo, *ajuda, *options,
+				*menu_items, *vbox, *file_menu, *options_menu,
+				*help_menu, *sobre, *relatar_erro, *refazer_teste, *sair,
+				*ajuda_item, *listar_software, *wiki, *scrolled_window,
+				*label;
 	GdkPixbuf *icon;
 	gchar *info;
 	GtkTreePath *path;
