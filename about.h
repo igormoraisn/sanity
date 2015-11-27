@@ -2,7 +2,9 @@
 
 static void help_clicked(GtkWindow *window) {
     const gchar *authors[] = { "Igor Nascimento dos Santos", 
-						"Artur Santos Nascimento (office test)", NULL };
+						"Artur Santos Nascimento (office test)",
+						"Thales Francisco S. S. A. dos Santos (contributor)",
+						 NULL };
     const gchar *license =
 	"This program is free software; you can redistribute it and/or modify it "
 	"under the terms of the GNU General Public License as published by "
