@@ -6,6 +6,7 @@
 
 #include <gtk/gtk.h>
 #include <stdlib.h>
+GtkWidget *icon_view;
 
 typedef struct {
 
@@ -82,7 +83,6 @@ void StartProgress ()
     GtkWidget *table;
     GtkWidget *window;
     GtkAdjustment *adj;
-
     pdata = g_malloc (sizeof (typProgressData));
     pdata->nLastPct = -1;
     pdata->bProgressUp = TRUE;
@@ -91,7 +91,7 @@ void StartProgress ()
      */
     window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
     pdata->window = window;
-    
+    gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER_ALWAYS);
     /* --- Hook up the destroy  --- */
     gtk_signal_connect (GTK_OBJECT (window), "delete_event",
 			GTK_SIGNAL_FUNC (CanWindowClose), pdata);
@@ -143,6 +143,7 @@ void EndProgress ()
 void refazer() {
 	StartProgress();
 	UpdateProgress(0, 7);
+	system("./progressbar.sh");
 	system("run-parts --regex .sh modules/network");
 	UpdateProgress(1, 7);
 	system("run-parts --regex .sh modules/development");

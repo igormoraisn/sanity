@@ -31,10 +31,6 @@ struct test_struct* create_list(char *erro)
 
 struct test_struct* add_to_list(int val, char *erro)
 {
-    if(NULL == head)
-    {
-        return (create_list("Primeiro"));
-    }
         printf("\n Adding node to end of list with value [%d]\n",val);
 
     struct test_struct *ptr = (struct test_struct*)malloc(sizeof(struct test_struct));
@@ -51,7 +47,7 @@ struct test_struct* add_to_list(int val, char *erro)
     return ptr;
 }
 
-unsigned int search_in_list(char *erro)
+unsigned char *search_in_list(char *erro)
 {
     struct test_struct *ptr = head;
     struct test_struct *tmp = NULL;
