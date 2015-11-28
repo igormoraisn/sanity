@@ -3,7 +3,6 @@
  */
 
 #include <gtk/gtk.h>
-#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -25,13 +24,13 @@ void on_item_selected (GtkIconView *view, gpointer data)
 	do {
 		GtkTreePath *path;
 		GtkTreeIter iter;
-		char *text;
-		char *string;
+		gchar *text;
+		gchar *string;
 		path = (GtkTreePath *)current->data;
 		gtk_tree_model_get_iter (model, &iter, path);
 		gtk_tree_path_free (path);
 		gtk_tree_model_get (model, &iter, COL_DISPLAY_NAME, &text, -1);
-		printf("Selected item: %s\n", text);
+		g_print("Selected item: %s\n", text);
 		string = search_in_list(text);
 		guint id = gtk_statusbar_get_context_id(GTK_STATUSBAR(statusbar), "info");
 		gtk_statusbar_push(GTK_STATUSBAR(statusbar), id, string);
@@ -42,14 +41,15 @@ void on_item_selected (GtkIconView *view, gpointer data)
 }
 
 static void wiki_browsed(){
-	system("xdg-open http://admin.dcomp.ufs.br/wiki/index.php/Página_principal");
+	// Verificar pipe
+	popen("xdg-open http://admin.dcomp.ufs.br/wiki/index.php/Página_principal", "r");
 }
 
 
 static void on_window_destroy(GtkWidget *widget,
 								gpointer data)
 {
-	printf("Obrigado por utilizar o Sanity :)\n");
+	g_print("Obrigado por utilizar o Sanity :)\n");
 	gtk_main_quit();
 }
 
@@ -174,12 +174,12 @@ int main (int argc, char *argv[]) {
 	gtk_icon_view_set_pixbuf_column (GTK_ICON_VIEW (icon_view), COL_PIXBUF);
 	//gtk_icon_view_set_selection_mode (GTK_ICON_VIEW (icon_view),
                                     //GTK_SELECTION_MULTIPLE);
+    // Sinal para ativação de icone
 	g_signal_connect (G_OBJECT (icon_view), "item-activated",
  		      G_CALLBACK (on_item_selected), NULL);
 	gtk_widget_show_all (scrolled_window);
 	
 	statusbar = gtk_statusbar_new();
-	// Sinal para ativação de icone
 	guint id = gtk_statusbar_get_context_id(GTK_STATUSBAR(statusbar), "info");
     info = "Para ver o erro correspondente, clique no icone do programa.";
     gtk_statusbar_push(GTK_STATUSBAR(statusbar), id, info);
