@@ -8,5 +8,5 @@ error=~/.sanity/.logs/.dev-error.txt
 
 
 if [ ! -e $mysql_path ]; then
-	echo "# Mysql - O banco de dados MYSQL não está instalado." >> $error
+	echo "# Mysql - O banco de dados Mysql não está instalado." >> $error
 fi

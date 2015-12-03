@@ -68,8 +68,8 @@ int main (int argc, char *argv[]) {
 	window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 	gtk_window_set_title(GTK_WINDOW (window), "Sanity");
 	gtk_signal_connect(GTK_OBJECT (window), "destroy",
-						(GtkSignalFunc) on_window_destroy, NULL);
-	gtk_widget_set_size_request(GTK_WIDGET (window), 600, 400);
+						(GtkSignalFunc) gtk_exit, NULL);
+	gtk_widget_set_size_request(GTK_WIDGET (window), 700, 500);
 	gtk_container_set_border_width (GTK_CONTAINER (window), 10);
 	gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER_ALWAYS);
 	icon = gdk_pixbuf_new_from_file ("sanity32.png", NULL);
