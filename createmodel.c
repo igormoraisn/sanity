@@ -37,6 +37,7 @@ GtkTreeModel *create_and_fill_model (void)
 	char hostname[60]; 
 	get_hostname();
 	get_user();
+	hostname[0] = '\0';	
 	strcat(hostname, "/home/");
 	strcat(hostname, user_name);
 	strcat(hostname, "/.sanity/");
