@@ -23,7 +23,7 @@ static void help_clicked(GtkWindow *window) {
 						"Um projeto totalmente open-source.";
     GdkPixbuf *logo = NULL;
     if(logo == NULL)
-		logo = gdk_pixbuf_new_from_file("sanity96.png", NULL);
+		logo = gdk_pixbuf_new_from_file("share/icons/sanity96.png", NULL);
     gtk_show_about_dialog(window,
                             "authors", authors,"license", license,
                             "logo", logo,
