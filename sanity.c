@@ -1,4 +1,6 @@
 /* Sanity
+ * Módulo de interface principal GTK
+ * Versão 0.3
  * gcc -o sanity sanity.c `pkg-config --libs --cflags gtk+-2.0`
  */
 
@@ -9,36 +11,7 @@
 #include "about.h"
 #include "progressbar.c"
 #include "createmodel.c"
-
-GtkWidget *statusbar;
-
-void on_item_selected (GtkIconView *view, gpointer data) 
-{
-	GtkTreeModel *model;
-	GList *selected, *current;
-	selected = gtk_icon_view_get_selected_items (view);
-	if (!selected)
-		return;
-	model = gtk_icon_view_get_model (view);
-	current = selected;
-	do {
-		GtkTreePath *path;
-		GtkTreeIter iter;
-		gchar *text;
-		gchar *string;
-		path = (GtkTreePath *)current->data;
-		gtk_tree_model_get_iter (model, &iter, path);
-		gtk_tree_path_free (path);
-		gtk_tree_model_get (model, &iter, COL_DISPLAY_NAME, &text, -1);
-		g_print("Selected item: %s\n", text);
-		string = search_in_list(text);
-		guint id = gtk_statusbar_get_context_id(GTK_STATUSBAR(statusbar), "info");
-		gtk_statusbar_push(GTK_STATUSBAR(statusbar), id, string);
-		g_free (text);
-	}
-	while (current = g_list_next (current));
-	g_list_free (selected);
-}
+#include "frameorganization.c"
 
 static void wiki_browsed(){
 	// Verificar pipe
@@ -47,24 +20,21 @@ static void wiki_browsed(){
 
 
 static void on_window_destroy(GtkWidget *widget,
-								gpointer data)
-{
+								gpointer data) {
 	g_print("Obrigado por utilizar o Sanity :)\n");
 	gtk_main_quit();
 }
 
 int main (int argc, char *argv[]) {
 	GtkWidget *window, *menu, *menu_bar, *arquivo, *ajuda, *options,
-				*menu_items, *vbox, *file_menu, *options_menu,
+				*menu_items, *file_menu, *options_menu,
 				*help_menu, *sobre, *relatar_erro, *refazer_teste, *sair,
-				*ajuda_item, *listar_software, *wiki, *scrolled_window,
-				*label;
+				*ajuda_item, *listar_software, *wiki, *label;
 	GdkPixbuf *icon;
-	gchar *info;
 	GtkTreePath *path;
 	gtk_init (&argc, &argv);
 	
-	/* create a new window */
+	// Criando uma nova janela
 	window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 	gtk_window_set_title(GTK_WINDOW (window), "Sanity");
 	gtk_signal_connect(GTK_OBJECT (window), "destroy",
@@ -72,7 +42,7 @@ int main (int argc, char *argv[]) {
 	gtk_widget_set_size_request(GTK_WIDGET (window), 700, 500);
 	gtk_container_set_border_width (GTK_CONTAINER (window), 10);
 	gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER_ALWAYS);
-	icon = gdk_pixbuf_new_from_file ("sanity32.png", NULL);
+	icon = gdk_pixbuf_new_from_file ("share/icons/sanity32.png", NULL);
 	gtk_window_set_icon(GTK_WINDOW(window), icon);
 	/* Init the menu-widget, and remember -- never
 	* gtk_show_widget() the menu widget!! */
@@ -91,7 +61,7 @@ int main (int argc, char *argv[]) {
 	gtk_widget_show(options);
 	gtk_widget_show(ajuda);
 
-	/* Create a menu-bar to hold the menus and add it to our main window*/
+	// Create a menu-bar to hold the menus and add it to our main window
 	gtk_container_add(GTK_CONTAINER(window), menu_bar);
 	gtk_menu_shell_append(GTK_MENU_SHELL (menu_bar), arquivo);
 	gtk_menu_shell_append(GTK_MENU_SHELL (menu_bar), options);
@@ -112,7 +82,8 @@ int main (int argc, char *argv[]) {
 	sobre = gtk_image_menu_item_new_with_label("Sobre");
 	wiki = gtk_image_menu_item_new_with_label("Wiki");
 	listar_software = gtk_image_menu_item_new_with_label("Listar Softwares Testados");
-    
+	
+    // Associando submenus a ícones
     gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(sair), 
 									gtk_image_new_from_stock
 									(GTK_STOCK_QUIT, GTK_ICON_SIZE_MENU)); 
@@ -159,31 +130,10 @@ int main (int argc, char *argv[]) {
 				\nAbaixo, estão listados os problemas encontrados.");
 	gtk_container_add (GTK_CONTAINER (vbox), label);
 	
-	// A partir daqui, cria-se a parte principal da interface
-	scrolled_window = gtk_scrolled_window_new (NULL, NULL);
-	gtk_container_add (GTK_CONTAINER (vbox), scrolled_window);
-	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),
-                                  GTK_POLICY_AUTOMATIC,
-                                  GTK_POLICY_AUTOMATIC);
-	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolled_window),
-                                       GTK_SHADOW_IN);
-	icon_view = gtk_icon_view_new_with_model (create_and_fill_model ());
-	gtk_container_add (GTK_CONTAINER (scrolled_window), icon_view);
-	gtk_icon_view_set_text_column (GTK_ICON_VIEW (icon_view),
-                                 COL_DISPLAY_NAME);
-	gtk_icon_view_set_pixbuf_column (GTK_ICON_VIEW (icon_view), COL_PIXBUF);
-	//gtk_icon_view_set_selection_mode (GTK_ICON_VIEW (icon_view),
-                                    //GTK_SELECTION_MULTIPLE);
-    // Sinal para ativação de icone
-	g_signal_connect (G_OBJECT (icon_view), "item-activated",
- 		      G_CALLBACK (on_item_selected), NULL);
-	gtk_widget_show_all (scrolled_window);
+	// Montando os elementos do centro da interface (icon view, scrolled
+	// window e statusbar
+	center_mount();
 	
-	statusbar = gtk_statusbar_new();
-	guint id = gtk_statusbar_get_context_id(GTK_STATUSBAR(statusbar), "info");
-    info = "Para ver o erro correspondente, clique no icone do programa.";
-    gtk_statusbar_push(GTK_STATUSBAR(statusbar), id, info);
-    gtk_box_pack_start(GTK_BOX (vbox), statusbar, FALSE, FALSE, 2);
 	/* always display the window as the last step so it all splashes 
 	 * on the screen at once. */
 	gtk_widget_show_all(window);

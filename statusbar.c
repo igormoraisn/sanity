@@ -1,7 +1,0 @@
-
-
-enum
-{
-  COL_DISPLAY
-};
-

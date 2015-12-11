@@ -1,4 +1,7 @@
-
+/*	Componente que gera o icon view a partir dos logs de testes
+ * Sanity 0.3
+ */
+ 
 #include "savelist.c"
 
 enum
@@ -44,14 +47,14 @@ GtkTreeModel *create_and_fill_model (void)
 	strcat(hostname, host_name);
 	strcat(hostname, ".txt");
 	// Abrindo log
-	printf("%s", hostname);
+	g_print("%s", hostname);
 	FILE *arquivo = fopen(hostname, "r");
 	char buffer[TAM_BUFFER];
 	list_store = gtk_list_store_new (NUM_COLS, G_TYPE_STRING, GDK_TYPE_PIXBUF);
 	unsigned int j = 0;
 	if(arquivo != NULL){
 		while(fgets(buffer, TAM_BUFFER, arquivo)){
-			printf("%s\n", buffer);
+			g_print("%s\n", buffer);
 			if ( buffer[0] == '#'){
 					unsigned int i=2, k=0;		
 					char *program, *temp, *exp;
@@ -93,7 +96,7 @@ GtkTreeModel *create_and_fill_model (void)
 			fclose(arquivo);
 		}
 		else 
-			printf("Não foi encontrado nenhum erro!");
+			g_print("Não foi encontrado nenhum erro!");
 	print_list();
 	return GTK_TREE_MODEL (list_store);
 }

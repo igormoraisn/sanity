@@ -1,12 +1,8 @@
 /*
  * Progress bar
- * Incomplete
- * 
+ * Sanity 0.3
  */
 
-#include <gtk/gtk.h>
-#include <stdlib.h>
-GtkWidget *icon_view;
 
 typedef struct {
 
@@ -83,6 +79,7 @@ void StartProgress ()
     GtkWidget *table;
     GtkWidget *window;
     GtkAdjustment *adj;
+    GdkPixbuf *icon;
     pdata = g_malloc (sizeof (typProgressData));
     pdata->nLastPct = -1;
     pdata->bProgressUp = TRUE;
@@ -97,7 +94,9 @@ void StartProgress ()
 			GTK_SIGNAL_FUNC (CanWindowClose), pdata);
     
     gtk_container_border_width (GTK_CONTAINER (window), 10);
-    
+    icon = gdk_pixbuf_new_from_file ("share/icons/sanity32.png", NULL);
+	gtk_window_set_icon(GTK_WINDOW(window), icon);
+	gtk_window_set_title(GTK_WINDOW (window), "Realizando Testes...");
     /* --- Create a table --- */
     table = gtk_table_new (3, 2, TRUE);
     gtk_container_add (GTK_CONTAINER (window), table);
@@ -140,23 +139,3 @@ void EndProgress ()
     pdata = NULL;
 }
 
-void refazer() {
-	StartProgress();
-	UpdateProgress(0, 7);
-	system("./progressbar.sh");
-	system("run-parts --regex .sh modules/network");
-	UpdateProgress(1, 7);
-	system("run-parts --regex .sh modules/development");
-	UpdateProgress(2, 7);
-	system("run-parts --regex .sh modules/office");
-	UpdateProgress(3, 7);
-	system("run-parts --regex .sh modules/ide");
-	UpdateProgress(4, 7);
-	system("run-parts --regex .sh modules/utility");
-	UpdateProgress(5, 7);
-	system("run-parts --regex .sh modules/library");
-	UpdateProgress(6, 7);
-	system("./select.sh");
-	UpdateProgress(7, 7);
-	EndProgress();
-}
