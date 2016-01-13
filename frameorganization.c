@@ -54,7 +54,7 @@ void center_mount(){
 	gtk_widget_show_all (scrolled_window);
 	statusbar = gtk_statusbar_new();
 	guint id = gtk_statusbar_get_context_id(GTK_STATUSBAR(statusbar), "info");
-    gchar *info = "Para ver o erro correspondente, clique no icone do programa.";
+    gchar *info = "Para ver o erro correspondente, duplo clique no icone do programa.";
     gtk_statusbar_push(GTK_STATUSBAR(statusbar), id, info);
     gtk_box_pack_start(GTK_BOX (vbox), statusbar, FALSE, FALSE, 2);
 	gtk_widget_show(statusbar);

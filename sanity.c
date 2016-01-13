@@ -6,24 +6,12 @@
 
 #include <gtk/gtk.h>
 #include <stdlib.h>
-#include <string.h>
 
 #include "about.h"
 #include "progressbar.c"
 #include "createmodel.c"
 #include "frameorganization.c"
-
-static void wiki_browsed(){
-	// Verificar pipe
-	popen("xdg-open http://admin.dcomp.ufs.br/wiki/index.php/Página_principal", "r");
-}
-
-
-static void on_window_destroy(GtkWidget *widget,
-								gpointer data) {
-	g_print("Obrigado por utilizar o Sanity :)\n");
-	gtk_main_quit();
-}
+#include "functions.h"
 
 int main (int argc, char *argv[]) {
 	GtkWidget *window, *menu, *menu_bar, *arquivo, *ajuda, *options,
@@ -124,12 +112,17 @@ int main (int argc, char *argv[]) {
 	g_signal_connect(G_OBJECT (wiki), "activate",
 						G_CALLBACK (wiki_browsed),
 						(GtkWindow*) window);
+	g_signal_connect(G_OBJECT (listar_software), "activate",
+						G_CALLBACK (soft_list),
+						(GtkWindow*) window);
+	g_signal_connect(G_OBJECT (relatar_erro), "activate",
+						G_CALLBACK (msg_send),
+						(GtkWindow*) window);
 	gtk_widget_show(menu_bar);
 	gtk_box_pack_start(GTK_BOX (vbox), menu_bar, FALSE, FALSE, 2);
 	label = gtk_label_new_with_mnemonic ("\t\t\tBem vindo ao Sanity! \
 				\nAbaixo, estão listados os problemas encontrados.");
 	gtk_container_add (GTK_CONTAINER (vbox), label);
-	
 	// Montando os elementos do centro da interface (icon view, scrolled
 	// window e statusbar
 	center_mount();

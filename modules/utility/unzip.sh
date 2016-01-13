@@ -10,7 +10,7 @@ error=~/.sanity/.logs/.util-error.txt
 if [ -e $unzip ]; then	
 	$unzip tmp/zip.doc.zip -d $unzip_path
 	if [ ! -e $unzip_path"zip.doc" ]; then		
-		echo "# Unzip - falha ao extrair arquivos" >> $error
+		echo "# Unzip - Unzip apresentou falha ao extrair arquivos." >> $error
 	else
 		rm $unzip_path"zip.doc"
 	fi

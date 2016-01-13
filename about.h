@@ -32,6 +32,6 @@ static void help_clicked(GtkWindow *window) {
                             "comments", comments,
                             "website", "http://igormoraisn.github.io/sanity", 
                             "website-label", "Visite o Site",
-                            "copyright", "(C) 2015 Igor Nascimento",
+                            "copyright", "(C) 2015-2016 Igor Nascimento",
                             "wrap-license", TRUE, NULL);
 }

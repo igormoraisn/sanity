@@ -10,7 +10,7 @@ if [ -e $emacs ]; then
 	emacs --version
 	ret=$?	
 	if [ ! $ret -eq 0 ]; then
-		echo "# Emacs - erro na inicialização" >> $error
+		echo "# Emacs - Emacs apresentou erro na inicialização." >> $error
 	fi
 
 else

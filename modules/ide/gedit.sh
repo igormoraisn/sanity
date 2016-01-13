@@ -10,7 +10,7 @@ if [ -e $gedit ]; then
 	gedit -V
 	ret=$?	
 	if [ ! $ret -eq 0 ]; then
-		echo "# Gedit - erro na inicialização" >> $error
+		echo "# Gedit - Gedit apresentou erro na inicialização." >> $error
 	fi
 
 else

@@ -4,8 +4,8 @@
  */
 
 
-typedef struct {
-
+typedef struct 
+{
     GtkWidget *progressbar;
     GtkWidget *window;
     int bProgressUp;
@@ -65,7 +65,6 @@ void UpdateProgress (unsigned int pos, unsigned int len)
         }
     }
 }
-
 
 
 /*

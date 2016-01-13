@@ -15,7 +15,7 @@ if [ -e $gcc_path ]; then
 	cd $source
 	./gcc-test
 	if  ! diff $source/gcc.txt $tmp/gcc_sample.txt ; then
-		echo "# Gcc - Gcc apresentou erro na compilação ou execução de programas" >> $error	
+		echo "# Gcc - Gcc apresentou erro na compilação ou execução de programas." >> $error	
 	fi
 	rm $source/gcc.txt
 else

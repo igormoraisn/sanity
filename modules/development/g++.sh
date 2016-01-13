@@ -14,7 +14,7 @@ if [ -e $cpp_path ]; then
 	cd $source	
 	./cpp-test
 	if  ! diff $source/g++.txt $tmp/g++_sample.txt ; then
-		echo "# G++ - G++ apresentou erro na compilação/execução de g++.cpp" >> $error	
+		echo "# G++ - G++ apresentou erro na compilação/execução de g++.cpp." >> $error	
 	fi
 	rm $source/g++.txt
 else

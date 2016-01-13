@@ -9,7 +9,7 @@ error=~/.sanity/.logs/.util-error.txt
 if [ -e $unrar ]; then
 	$unrar e tmp/rar.doc.rar ~/.sanity/.src
 	if [ ! -e ~/.sanity/.src/rar.doc ]; then
-		echo "# Unrar - falha ao extrair os arquivos" >> $error
+		echo "# Unrar - Unrar apresentou falha ao extrair os arquivos." >> $error
 	else
 		rm ~/.sanity/.src/rar.doc
 	fi

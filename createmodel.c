@@ -1,5 +1,5 @@
 /*	Componente que gera o icon view a partir dos logs de testes
- * Sanity 0.3
+ * 	Sanity 0.3
  */
  
 #include "savelist.c"
@@ -13,7 +13,8 @@ enum
 
 char host_name[30], user_name[20];
 
-void get_hostname() {
+void get_hostname() 
+{
 	FILE* fpa;
 	fpa = popen("hostname", "r"); 
 	fgets( host_name, sizeof host_name, fpa);
@@ -21,7 +22,8 @@ void get_hostname() {
 	host_name[(strlen(host_name))-1] = '\0';
 }
 
-void get_user() {
+void get_user() 
+{
 	FILE* fp;
 	fp = popen("whoami", "r"); 
 	fgets( user_name, sizeof user_name, fp);
@@ -36,7 +38,7 @@ GtkTreeModel *create_and_fill_model (void)
 	GdkPixbuf *p1;
 	GtkTreeIter iter;
 	GError *err = NULL;
-	const unsigned int TAM_BUFFER = 70;
+	const unsigned int TAM_BUFFER = 80;
 	char hostname[60]; 
 	get_hostname();
 	get_user();

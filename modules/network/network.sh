@@ -9,5 +9,5 @@ error=~/.sanity/.logs/.net-error.txt
 ping -c1 $test_dir	
 ret=$?	
 if [ ! $ret -eq 0 ]; then
-	echo "# Rede - Falha de conexão" >> $error
+	echo "# Rede - Falha de conexão na Rede." >> $error
 fi

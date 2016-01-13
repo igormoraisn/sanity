@@ -19,7 +19,7 @@ if [ -e $jdk_path ]; then
 	java Java
 # Comparando a saída do programa		
 	if ! diff $source/java.txt $tmp/jdk_sample.txt ; then
-		echo "# Jdk - Jdk apresentou erro na compilação/execução de Java.java" >> $error	
+		echo "# Jdk - Jdk apresentou erro na compilação/execução de Java.java." >> $error	
 	fi
 	rm $source/java.txt
 else
