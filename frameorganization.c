@@ -68,10 +68,10 @@ void refazer() {
 	gint bit;
 	StartProgress();
 	UpdateProgress(0, 7);
-	system("./opt/sanity/progressbar.sh");
+	system("/opt/sanity/progressbar.sh");
 	system("run-parts --regex .sh /opt/sanity/modules/network");
 	UpdateProgress(1, 7);
-	system("run-parts --regex .sh /opt/sanitymodules/development");
+	system("run-parts --regex .sh /opt/sanity/modules/development");
 	UpdateProgress(2, 7);
 	system("run-parts --regex .sh /opt/sanity/modules/office");
 	UpdateProgress(3, 7);
