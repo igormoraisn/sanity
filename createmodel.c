@@ -49,20 +49,18 @@ GtkTreeModel *create_and_fill_model (void)
 	strcat(hostname, host_name);
 	strcat(hostname, ".txt");
 	// Abrindo log
-	g_print("%s", hostname);
-	FILE *arquivo = fopen(hostname, "r");
+	FILE* arquivo = fopen(hostname, "r");
 	char buffer[TAM_BUFFER];
 	list_store = gtk_list_store_new (NUM_COLS, G_TYPE_STRING, GDK_TYPE_PIXBUF);
 	unsigned int j = 0;
 	if(arquivo != NULL){
 		while(fgets(buffer, TAM_BUFFER, arquivo)){
-			g_print("%s\n", buffer);
 			if ( buffer[0] == '#'){
 					unsigned int i=2, k=0;		
 					char *program, *temp, *exp;
 					program = (char *)calloc(12, sizeof(char));
 					temp = (char *)calloc(40, sizeof(char));
-					strcpy(temp, "share/icons/");
+					strcpy(temp, "/opt/sanity/share/icons/");
 					exp = (char *)calloc(60, sizeof(char));
 					while (buffer[i] != ' ') {
 						program[i-2] = buffer[i];
@@ -97,8 +95,9 @@ GtkTreeModel *create_and_fill_model (void)
 			}  
 			fclose(arquivo);
 		}
-		else 
-			g_print("Não foi encontrado nenhum erro!");
-	print_list();
+		else {
+			system("zenity --info --text=\"Nenhum arquivo de log foi encontrado!\"");
+			return NULL;
+		}
 	return GTK_TREE_MODEL (list_store);
 }

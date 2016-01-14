@@ -20,6 +20,7 @@ int main (int argc, char *argv[]) {
 				*ajuda_item, *listar_software, *wiki, *label;
 	GdkPixbuf *icon;
 	GtkTreePath *path;
+	gint bit;
 	gtk_init (&argc, &argv);
 	
 	// Criando uma nova janela
@@ -30,7 +31,7 @@ int main (int argc, char *argv[]) {
 	gtk_widget_set_size_request(GTK_WIDGET (window), 700, 500);
 	gtk_container_set_border_width (GTK_CONTAINER (window), 10);
 	gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER_ALWAYS);
-	icon = gdk_pixbuf_new_from_file ("share/icons/sanity32.png", NULL);
+	icon = gdk_pixbuf_new_from_file ("/opt/sanity/share/icons/sanity32.png", NULL);
 	gtk_window_set_icon(GTK_WINDOW(window), icon);
 	/* Init the menu-widget, and remember -- never
 	* gtk_show_widget() the menu widget!! */
@@ -125,7 +126,10 @@ int main (int argc, char *argv[]) {
 	gtk_container_add (GTK_CONTAINER (vbox), label);
 	// Montando os elementos do centro da interface (icon view, scrolled
 	// window e statusbar
-	center_mount();
+	bit = center_mount();
+	if(bit == 1){
+		return 0;
+	}
 	
 	/* always display the window as the last step so it all splashes 
 	 * on the screen at once. */

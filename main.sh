@@ -33,6 +33,8 @@ if [ -e $date ]; then
 	rm $date
 fi
 
+cd /opt/sanity
+
 checa_logs .dev-error.txt
 checa_logs .ide-error.txt
 checa_logs .lib-error.txt

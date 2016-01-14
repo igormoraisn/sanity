@@ -17,7 +17,6 @@ struct test_struct* create_list(char *erro)
     struct test_struct *ptr = (struct test_struct*)malloc(sizeof(struct test_struct));
     if(NULL == ptr)
     {
-        g_print("\n Node creation failed \n");
         return NULL;
     }
     ptr->val = 0;
@@ -30,12 +29,10 @@ struct test_struct* create_list(char *erro)
 
 struct test_struct* add_to_list(int val, char *erro)
 {
-        g_print("\n Adding node to end of list with value [%d]\n",val);
 
     struct test_struct *ptr = (struct test_struct*)malloc(sizeof(struct test_struct));
     if(NULL == ptr)
     {
-        g_print("\n Node creation failed \n");
         return NULL;
     }
     ptr->val = val;
@@ -51,7 +48,6 @@ unsigned char *search_in_list(char *erro)
     struct test_struct *ptr = head;
     struct test_struct *tmp = NULL;
 
-    g_print("\n Searching the list for value [%s] \n",erro);
 
     while(ptr != NULL)
     {
@@ -73,13 +69,10 @@ void print_list(void)
 {
     struct test_struct *ptr = head;
 
-    g_print("\n -------Printing list Start------- \n");
     while(ptr != NULL)
     {
-        g_print("\n [%d %s] \n",ptr->val, ptr->error);
         ptr = ptr->next;
     }
-    g_print("\n -------Printing list End------- \n");
 
     return;
 }

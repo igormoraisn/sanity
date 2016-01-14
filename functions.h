@@ -6,12 +6,12 @@ static void wiki_browsed(){
 }
 
 static void soft_list(){
-	gchar *string = "cat Program_List | zenity --list --text=\"A seguir, vemos os programas testados:\" --cancel-label=\"Voltar\" --width=400 --height=400 --column \"Programa\" --column \"Função\"";
+	gchar *string = "cat /opt/sanity/Program_List | zenity --list --text=\"A seguir, vemos os programas testados:\" --cancel-label=\"Voltar\" --width=400 --height=400 --column \"Programa\" --column \"Função\"";
 	system(string);
 }
 
 static void msg_send(){
-	gchar *msg = "zenity --text-info --editable --cancel-label=\"Voltar\" --ok-label=\"Enviar\" --checkbox=\"Eu tenho plena ciência das informações que estou enviando.\"";
+	gchar *msg = "/opt/sanity/mail.sh";
 	system(msg);
 }
 
